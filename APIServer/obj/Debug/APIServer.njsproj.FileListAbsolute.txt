@@ -1,0 +1,2 @@
+D:\Projects\DryCleaning\APIServer\obj\Debug\APIServer.njsprojAssemblyReference.cache
+D:\Projects\DryCleaning\APIServer\bin\Microsoft.NodejsTools.WebRole.dll

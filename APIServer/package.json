@@ -1,0 +1,17 @@
+{
+  "name": "apiserver",
+  "version": "0.0.0",
+  "description": "APIServer",
+  "main": "server.js",
+  "author": {
+    "name": ""
+  },
+  "dependencies": {
+    "express": "^4.17.1",
+    "js-md5": "^0.7.3",
+    "md5": "^2.2.1",
+    "mysql": "^2.18.1",
+    "sqlite-json": "^1.1.0",
+    "sqlite3": "^4.1.1"
+  }
+}
