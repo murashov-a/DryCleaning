@@ -36,7 +36,7 @@ app.use((request, response, next) => {
                 next()
             }
             else {
-                console.log(`Authorisation error for user '${passportid}'`);
+                console.log(`Authorisation error for passport '${passportid}'`);
                 response.status(401).json({ message: '401 Unauthorized' })
             }
         });
@@ -51,7 +51,6 @@ app.get('/user', function (request, response) {
     });
 });
 
-//UPDATE Employee SET PassportID = coalesce(NULL, PassportID), Name = coalesce(NULL, Name), Password = coalesce(NULL, Password) WHERE PassportID = '123412'
 app.put('/user', function (request, response) {
     var passportid = request.query.passportid
 
@@ -67,14 +66,48 @@ app.put('/user', function (request, response) {
         Password = coalesce(${newPassword}, Password)
         WHERE PassportID = '${passportid}'`,
     function(err){
-        if (err) {
+        if (err){
             response.status(500).json({ message: err.message })
         }
-        else
-        {
+        else{
             db.json(`SELECT PassportID, Name, Role, IsAdmin FROM Employee WHERE PassportID = '${passportid}'`, function (err, jsonString) {
                 response.json(JSON.parse(jsonString)[0])
             });
+        }
+    });
+});
+
+app.post('/users', function (request, response) {
+    var passportid = request.query.passportid
+    db.json(`SELECT IsAdmin FROM Employee WHERE PassportID = '${passportid}'`, function (err, jsonString) {
+        var user = JSON.parse(jsonString)[0]
+        if(user.IsAdmin)
+        {
+            if(request.query.newPassportID == null ||
+                request.query.name == null ||
+                request.query.role == null ||
+                request.query.newPassword == null){
+                    response.status(400).json({ message: "400 Bad Request" })
+            }
+            else{
+                var isAdmin = request.query.isAdmin == null ? false : request.query.isAdmin
+                db.json(`INSERT INTO Employee VALUES(
+                    "${request.query.newPassportID}",
+                    "${request.query.name}",
+                    "${request.query.role}",
+                    "${md5(request.query.newPassword)}",
+                    ${isAdmin});`, function (err, jsonString) {
+                        if (err){
+                            response.status(500).json({ message: err.message })
+                        }
+                        else{
+                            response.status(200).json({ message: "OK" })
+                        }
+                });
+            }
+        }
+        else{
+            response.status(403).json({ message: "403 Forbidden" })
         }
     });
 });
@@ -99,16 +132,69 @@ app.get('/materials', function (request, response) {
     });
 });
 
+app.post('/materials', function (request, response) {
+    if(request.query.name == null){
+            response.status(400).json({ message: "400 Bad Request" })
+    }
+    else{
+        db.json(`INSERT INTO Material VALUES(
+            "${request.query.name}");`, function (err, jsonString) {
+                if (err){
+                    response.status(500).json({ message: err.message })
+                }
+                else{
+                    response.status(200).json({ message: "OK" })
+                }
+        });
+    }
+});
+
 app.get('/chemicalagents', function (request, response) {
     db.json(`SELECT Name FROM ChemicalAgent`, {key: 'Name'}, function (err, jsonString) {
         response.json(JSON.parse(jsonString))
     });
 });
 
+app.post('/chemicalagents', function (request, response) {
+    if(request.query.name == null){
+            response.status(400).json({ message: "400 Bad Request" })
+    }
+    else{
+        db.json(`INSERT INTO ChemicalAgent VALUES(
+            "${request.query.name}");`, function (err, jsonString) {
+                if (err){
+                    response.status(500).json({ message: err.message })
+                }
+                else{
+                    response.status(200).json({ message: "OK" })
+                }
+        });
+    }
+});
+
 app.get('/clients', function (request, response) {
     db.json(`SELECT * FROM Client`, {key: 'ID'}, function (err, jsonString) {
         response.json(JSON.parse(jsonString))
     });
+});
+
+app.post('/clients', function (request, response) {
+    if(request.query.name == null ||
+        request.query.telephone == null){
+            response.status(400).json({ message: "400 Bad Request" })
+    }
+    else{
+        db.json(`INSERT INTO Client (Name, Telephone) VALUES(
+            "${request.query.name}",
+            "${request.query.telephone}");`, function (err, jsonString) {
+                if (err){
+                    response.status(500).json({ message: err.message })
+                }
+                else{
+                    response.status(200).json({ message: "OK" })
+                }
+        });
+    }
 });
 
 app.get('/clients/:id', function (request, response) {
@@ -142,10 +228,60 @@ app.get('/roles', function (request, response) {
     });
 });
 
+app.post('/roles', function (request, response) {
+    var passportid = request.query.passportid
+    db.json(`SELECT IsAdmin FROM Employee WHERE PassportID = '${passportid}'`, function (err, jsonString) {
+        var user = JSON.parse(jsonString)[0]
+        if(user.IsAdmin)
+        {
+            if(request.query.name == null ||
+                request.query.salary == null){
+                    response.status(400).json({ message: "400 Bad Request" })
+            }
+            else{
+                db.json(`INSERT INTO Role VALUES(
+                    "${request.query.name}",
+                    "${request.query.salary}");`, function (err, jsonString) {
+                        if (err){
+                            response.status(500).json({ message: err.message })
+                        }
+                        else{
+                            response.status(200).json({ message: "OK" })
+                        }
+                });
+            }
+        }
+        else{
+            response.status(403).json({ message: "403 Forbidden" })
+        }
+    });
+});
+
 app.get('/types', function (request, response) {
     db.json(`SELECT * FROM Type`, {key: 'Name'}, function (err, jsonString) {
         response.json(JSON.parse(jsonString))
     });
+});
+
+app.post('/types', function (request, response) {
+        if(request.query.name == null ||
+            request.query.compensation == null ||
+            request.query.cleaningprice == null){
+                response.status(400).json({ message: "400 Bad Request" })
+        }
+        else{
+            db.json(`INSERT INTO Type VALUES(
+                "${request.query.name}",
+                "${request.query.compensation}",
+                "${request.query.cleaningprice}");`, function (err, jsonString) {
+                    if (err){
+                        response.status(500).json({ message: err.message })
+                    }
+                    else{
+                        response.status(200).json({ message: "OK" })
+                    }
+            });
+        }
 });
 
 app.get('/cleanings', function (request, response) {
@@ -166,16 +302,62 @@ app.get('/things', function (request, response) {
     });
 });
 
+app.post('/things', function (request, response) {
+    if(request.query.name == null ||
+        request.query.material == null ||
+        request.query.type == null ||
+        request.query.cleaningorder == null){
+            response.status(400).json({ message: "400 Bad Request" })
+    }
+    else{
+        db.json(`INSERT INTO Thing (Name, Material, Type, CleaningOrder) VALUES(
+            "${request.query.name}",
+            "${request.query.material}",
+            "${request.query.type}",
+            "${request.query.cleaningorder}");`, function (err, jsonString) {
+                if (err){
+                    response.status(500).json({ message: err.message })
+                }
+                else{
+                    response.status(200).json({ message: "OK" })
+                }
+        });
+    }
+});
+
 app.get('/things/:id', function (request, response) {
     db.json(`SELECT * FROM Thing WHERE ID = '${request.params.id}'`, function (err, jsonString) {
         response.json(JSON.parse(jsonString)[0])
     });
 });
 
-app.get('/cleaningorder', function (request, response) {
+app.get('/cleaningorders', function (request, response) {
     db.json(`SELECT * FROM CleaningOrder`, {key: 'ID'}, function (err, jsonString) {
         response.json(JSON.parse(jsonString))
     });
+});
+
+app.post('/cleaningorders', function (request, response) {
+    if(request.query.name == null ||
+        request.query.material == null ||
+        request.query.type == null ||
+        request.query.cleaningorder == null){
+            response.status(400).json({ message: "400 Bad Request" })
+    }
+    else{
+        db.json(`INSERT INTO Thing (Name, Material, Type, CleaningOrder) VALUES(
+            "${request.query.name}",
+            "${request.query.material}",
+            "${request.query.type}",
+            "${request.query.cleaningorder}");`, function (err, jsonString) {
+                if (err){
+                    response.status(500).json({ message: err.message })
+                }
+                else{
+                    response.status(200).json({ message: "OK" })
+                }
+        });
+    }
 });
 
 app.get('/cleaningorder/:id', function (request, response) {
@@ -183,4 +365,3 @@ app.get('/cleaningorder/:id', function (request, response) {
         response.json(JSON.parse(jsonString)[0])
     });
 });
-
