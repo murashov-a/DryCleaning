@@ -5,6 +5,10 @@ VisualStudioVersion = 16.0.29806.167
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}") = "APIServer", "APIServer\APIServer.njsproj", "{B3579EBB-4639-488C-B458-54C0A7564B1B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DryCleaningClient", "DryCleaningClient\DryCleaningClient.csproj", "{2B24AC5F-FA60-4E66-AE63-8C6A8DF0D5F7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DryCleaningAPI", "DryCleaningAPI\DryCleaningAPI.csproj", "{F53ED0C7-A5FF-4939-A72E-DAD0916BA27E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{B3579EBB-4639-488C-B458-54C0A7564B1B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B3579EBB-4639-488C-B458-54C0A7564B1B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B3579EBB-4639-488C-B458-54C0A7564B1B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2B24AC5F-FA60-4E66-AE63-8C6A8DF0D5F7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2B24AC5F-FA60-4E66-AE63-8C6A8DF0D5F7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2B24AC5F-FA60-4E66-AE63-8C6A8DF0D5F7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2B24AC5F-FA60-4E66-AE63-8C6A8DF0D5F7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F53ED0C7-A5FF-4939-A72E-DAD0916BA27E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F53ED0C7-A5FF-4939-A72E-DAD0916BA27E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F53ED0C7-A5FF-4939-A72E-DAD0916BA27E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F53ED0C7-A5FF-4939-A72E-DAD0916BA27E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

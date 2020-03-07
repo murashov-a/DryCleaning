@@ -1,6 +1,7 @@
 const express = require('express')
 const sqliteJson = require('sqlite-json')
 const md5 = require('js-md5');
+const crypto = require('crypto')
 
 const app = express()
 const port = 80
@@ -15,10 +16,8 @@ app.listen(port,
         console.log(`Server is listening on ${port}`)
     })
 
-/*
-Authorization
-*/
-app.use((request, response, next) => {
+
+app.post('/authorization', function (request, response) {
     var passportid = request.query.passportid
     var password = request.query.password
 
@@ -31,9 +30,12 @@ app.use((request, response, next) => {
         db.json(`SELECT * FROM Employee WHERE PassportID = '${passportid}' AND Password = '${passwordMD5}'`, function (err, jsonString) {
             var json = JSON.parse(jsonString)
             if (json.length == 1) {
-                console.log(`Incoming request from '${json[0].Name}'`)
-                // only authorization success next methods
-                next()
+                var token = crypto.randomBytes(16).toString('hex');
+                db.json(`DELETE FROM Token WHERE Employee = '${passportid}'`, function (err, jsonString) {
+                    db.json(`INSERT INTO Token VALUES(${passportid}, '${md5(token)}')`, function (err, jsonString) {
+                        response.status(200).json({ token: token })
+                    });
+                });
             }
             else {
                 console.log(`Authorisation error for passport '${passportid}'`);
@@ -43,34 +45,51 @@ app.use((request, response, next) => {
     }
 })
 
-app.get('/user', function (request, response) {
-    var passportid = request.query.passportid
+app.use((request, response, next) => {
+    var token = request.headers.token
 
-    db.json(`SELECT PassportID, Name, Role, IsAdmin FROM Employee WHERE PassportID = '${passportid}'`, function (err, jsonString) {
+    if (token == null) {
+        response.status(401).json({ message: '401 Unauthorized' })
+    }
+    else {
+        db.json(`SELECT * FROM Token, Employee WHERE Token.Employee = Employee.PassportID AND Token.Token = '${md5(token)}'`, function (err, jsonString) {
+            var json = JSON.parse(jsonString)
+            if (json.length == 1) {
+                console.log(`Incoming request from '${json[0].Name}'`)
+                // only authorization success next methods
+                response.locals.passportid = json[0].Employee
+                next()
+            }
+            else {
+                response.status(401).json({ message: '401 Unauthorized' })
+            }
+        });
+    }
+})
+
+app.get('/user', function (request, response) {
+    db.json(`SELECT PassportID, Name, Role, IsAdmin FROM Employee WHERE PassportID = '${response.locals.passportid}'`, function (err, jsonString) {
         response.json(JSON.parse(jsonString)[0])
     });
 });
 
 app.put('/user', function (request, response) {
-    var passportid = request.query.passportid
-
     var newPassportID = request.query.newPassportID == null ? "null" : `"${request.query.newPassportID}"`
     var newName = request.query.newName == null ? "null" : `"${request.query.newName}"`
     var newPassword = request.query.newPassword == null ? "null" : `"${md5(request.query.newPassword)}"`
-
 
     db.json(`UPDATE Employee
         SET
         PassportID = coalesce(${newPassportID}, PassportID),
         Name = coalesce(${newName}, Name),
         Password = coalesce(${newPassword}, Password)
-        WHERE PassportID = '${passportid}'`,
+        WHERE PassportID = '${response.locals.passportid}'`,
     function(err){
         if (err){
             response.status(500).json({ message: err.message })
         }
         else{
-            db.json(`SELECT PassportID, Name, Role, IsAdmin FROM Employee WHERE PassportID = '${passportid}'`, function (err, jsonString) {
+            db.json(`SELECT PassportID, Name, Role, IsAdmin FROM Employee WHERE PassportID = '${response.locals.passportid}'`, function (err, jsonString) {
                 response.json(JSON.parse(jsonString)[0])
             });
         }
@@ -78,8 +97,7 @@ app.put('/user', function (request, response) {
 });
 
 app.post('/users', function (request, response) {
-    var passportid = request.query.passportid
-    db.json(`SELECT IsAdmin FROM Employee WHERE PassportID = '${passportid}'`, function (err, jsonString) {
+    db.json(`SELECT IsAdmin FROM Employee WHERE PassportID = '${response.locals.passportid}'`, function (err, jsonString) {
         var user = JSON.parse(jsonString)[0]
         if(user.IsAdmin)
         {
@@ -113,8 +131,6 @@ app.post('/users', function (request, response) {
 });
 
 app.get('/users', function (request, response) {
-    var passportid = request.query.passportid
-
     db.json(`SELECT PassportID, Name, Role, IsAdmin FROM Employee`, {key: 'PassportID'}, function (err, jsonString) {
         response.json(JSON.parse(jsonString))
     });
@@ -127,7 +143,7 @@ app.get('/users/:passportid', function (request, response) {
 });
 
 app.get('/materials', function (request, response) {
-    db.json(`SELECT Material FROM Material`, {key: 'Material'}, function (err, jsonString) {
+    db.json(`SELECT Name FROM Material`, {key: 'Name'}, function (err, jsonString) {
         response.json(JSON.parse(jsonString))
     });
 });
@@ -210,9 +226,7 @@ app.get('/results', function (request, response) {
 });
 
 app.get('/roles', function (request, response) {
-    var passportid = request.query.passportid
-
-    db.json(`SELECT IsAdmin FROM Employee WHERE PassportID = '${passportid}'`, function (err, jsonString) {
+    db.json(`SELECT IsAdmin FROM Employee WHERE PassportID = '${response.locals.passportid}'`, function (err, jsonString) {
         var user = JSON.parse(jsonString)[0]
         var query = ``
         if(user.IsAdmin)
@@ -229,8 +243,7 @@ app.get('/roles', function (request, response) {
 });
 
 app.post('/roles', function (request, response) {
-    var passportid = request.query.passportid
-    db.json(`SELECT IsAdmin FROM Employee WHERE PassportID = '${passportid}'`, function (err, jsonString) {
+    db.json(`SELECT IsAdmin FROM Employee WHERE PassportID = '${response.locals.passportid}'`, function (err, jsonString) {
         var user = JSON.parse(jsonString)[0]
         if(user.IsAdmin)
         {
@@ -290,6 +303,31 @@ app.get('/cleanings', function (request, response) {
     });
 });
 
+app.post('/cleanings', function (request, response) {
+    if(request.query.date == null ||
+        request.query.result == null ||
+        request.query.employee == null ||
+        request.query.chemicalagent == null ||
+        request.query.thing == null){
+            response.status(400).json({ message: "400 Bad Request" })
+    }
+    else{
+        db.json(`INSERT INTO Cleaning (Date, Result, Employee, ChemicAlagent, Thing) VALUES(
+            "${request.query.date}",
+            "${request.query.result}",
+            "${request.query.employee}",
+            "${request.query.chemicalagent}",
+            "${request.query.thing}");`, function (err, jsonString) {
+                if (err){
+                    response.status(500).json({ message: err.message })
+                }
+                else{
+                    response.status(200).json({ message: "OK" })
+                }
+        });
+    }
+});
+
 app.get('/cleanings/:id', function (request, response) {
     db.json(`SELECT * FROM Cleaning WHERE ID = '${request.params.id}'`, function (err, jsonString) {
         response.json(JSON.parse(jsonString)[0])
@@ -338,18 +376,25 @@ app.get('/cleaningorders', function (request, response) {
 });
 
 app.post('/cleaningorders', function (request, response) {
-    if(request.query.name == null ||
-        request.query.material == null ||
-        request.query.type == null ||
-        request.query.cleaningorder == null){
+    if( request.query.dateofreceipt == null ||
+        request.query.targetterm == null ||
+        request.query.employee == null ||
+        request.query.client == null){
             response.status(400).json({ message: "400 Bad Request" })
     }
     else{
-        db.json(`INSERT INTO Thing (Name, Material, Type, CleaningOrder) VALUES(
-            "${request.query.name}",
-            "${request.query.material}",
-            "${request.query.type}",
-            "${request.query.cleaningorder}");`, function (err, jsonString) {
+        var DateOfReceipt = request.query.dateofreceipt
+        //var DateOfReturn = request.query.dateofreturn //== null ? "null" : `${request.query.dateofreturn}`
+        var TargetTerm = request.query.targetterm
+        //var ActualTerm = request.query.actualterm //== null ? "null" : `${request.query.actualterm}`
+        var Employee = request.query.employee
+        var Client = request.query.client
+
+        db.json(`INSERT INTO CleaningOrder (DateOfReceipt, TargetTerm, Employee, Client) VALUES(
+            '${DateOfReceipt}',
+            '${TargetTerm}',
+            ${Employee},
+            ${Client});`, function (err, jsonString) {
                 if (err){
                     response.status(500).json({ message: err.message })
                 }
@@ -360,7 +405,36 @@ app.post('/cleaningorders', function (request, response) {
     }
 });
 
-app.get('/cleaningorder/:id', function (request, response) {
+app.put('/cleaningorders/:id', function (request, response) {
+    var DateOfReceipt = request.query.dateofreceipt == null ? "null" : `"${request.query.dateofreceipt}"`
+    var DateOfReturn = request.query.dateofreturn == null ? "null" : `"${request.query.dateofreturn}"`
+    var TargetTerm = request.query.targetterm == null ? "null" : `"${request.query.targetterm}"`
+    var ActualTerm = request.query.actualterm == null ? "null" : `"${request.query.actualterm}"`
+    var Employee = request.query.employee == null ? "null" : `${request.query.employee}`
+    var Client = request.query.client == null ? "null" : `${request.query.client}`
+
+    db.json(`UPDATE CleaningOrder
+        SET
+        DateOfReceipt = coalesce(${DateOfReceipt}, DateOfReceipt),
+        DateOfReturn = coalesce(${DateOfReturn}, DateOfReturn),
+        TargetTerm = coalesce(${TargetTerm}, TargetTerm),
+        ActualTerm = coalesce(${ActualTerm}, ActualTerm),
+        Employee = coalesce(${Employee}, Employee),
+        Client = coalesce(${Client}, Client)
+        WHERE ID = '${request.params.id}'`,
+    function(err){
+        if (err){
+            response.status(500).json({ message: err.message })
+        }
+        else{
+            db.json(`SELECT * FROM CleaningOrder WHERE ID = '${request.params.id}'`, function (err, jsonString) {
+                response.json(JSON.parse(jsonString)[0])
+            });
+        }
+    });
+});
+
+app.get('/cleaningorders/:id', function (request, response) {
     db.json(`SELECT * FROM CleaningOrder WHERE ID = '${request.params.id}'`, function (err, jsonString) {
         response.json(JSON.parse(jsonString)[0])
     });
