@@ -95,6 +95,7 @@ namespace DryCleaningClient
             this.maskedTextBox_Password.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.maskedTextBox_Password.Location = new System.Drawing.Point(177, 39);
             this.maskedTextBox_Password.Name = "maskedTextBox_Password";
+            this.maskedTextBox_Password.PasswordChar = '*';
             this.maskedTextBox_Password.Size = new System.Drawing.Size(580, 29);
             this.maskedTextBox_Password.TabIndex = 3;
             // 
@@ -122,6 +123,7 @@ namespace DryCleaningClient
             this.MaximumSize = new System.Drawing.Size(800, 170);
             this.MinimumSize = new System.Drawing.Size(800, 170);
             this.Name = "LoginForm";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Авторизация";
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();

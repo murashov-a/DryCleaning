@@ -56,7 +56,9 @@
     <Compile Include="Exceptions\DryCleaningException.cs" />
     <Compile Include="Http\Requestor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RolesClient.cs" />
     <Compile Include="Session.cs" />
+    <Compile Include="UsersClient.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

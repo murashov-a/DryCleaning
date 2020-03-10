@@ -1,13 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using DryCleaningAPI.Exceptions;
+using DryCleaningClient.UI;
 
 namespace DryCleaningClient
 {
@@ -16,20 +10,41 @@ namespace DryCleaningClient
         public LoginForm()
         {
             InitializeComponent();
+
+#if DEBUG
+            textBox_PassportID.Text = "123456";
+            maskedTextBox_Password.Text = "1234";
+
+#endif
         }
 
 
         private void button_Login_Click(object sender, EventArgs e)
         {
-            try
+            int passportid;
+            string password;
+            if (Int32.TryParse(textBox_PassportID.Text, out passportid) && !string.IsNullOrEmpty(maskedTextBox_Password.Text))
             {
-                var dryCleaningClient = new DryCleaningAPI.DryCleaningClient("http://localhost",
-                    Int32.Parse(textBox_PassportID.Text),
-                    maskedTextBox_Password.Text);
-            }
-            catch (DryCleaningException exception)
-            {
-                MessageBox.Show($"Ошибка: {exception.Message}", "Авторизация", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                password = maskedTextBox_Password.Text;
+
+                DryCleaningAPI.DryCleaningClient client = null;
+                try
+                {
+                    client = new DryCleaningAPI.DryCleaningClient("http://localhost", passportid, password);
+                }
+                catch (DryCleaningException exception)
+                {
+                    MessageBox.Show($"Ошибка: {exception.Message}", "Авторизация", MessageBoxButtons.OK,
+                        MessageBoxIcon.Error);
+                }
+
+                if (client != null)
+                {
+                    var mainForm = new MainForm(client);
+                    this.Hide();
+                    mainForm.ShowDialog();
+                    this.Show();
+                }
             }
         }
     }

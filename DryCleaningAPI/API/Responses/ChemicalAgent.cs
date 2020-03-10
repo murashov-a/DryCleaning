@@ -7,9 +7,25 @@ using System.Threading.Tasks;
 
 namespace DryCleaningClient.API.Responses
 {
-    class ChemicalAgent
+    public class ChemicalAgent
     {
         [DisplayName("Химическое средство")]
         public string Name { get; set; }
+
+        public override int GetHashCode()
+        {
+            return Name.GetHashCode();
+        }
+
+        public override bool Equals(object obj)
+        {
+            bool equaled = false;
+            if (obj is ChemicalAgent chemicalAgent)
+            {
+                equaled = chemicalAgent.GetHashCode().Equals(this.GetHashCode());
+            }
+
+            return equaled;
+        }
     }
 }

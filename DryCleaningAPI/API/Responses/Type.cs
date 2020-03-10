@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DryCleaningClient.API.Responses
 {
-    class Type
+    public class Type
     {
         [DisplayName("Тип")]
         public string Name { get; set; }
@@ -17,5 +17,21 @@ namespace DryCleaningClient.API.Responses
 
         [DisplayName("Цена чистки")]
         public int CleaningPrice { get; set; }
+
+        public override int GetHashCode()
+        {
+            return Name.GetHashCode();
+        }
+
+        public override bool Equals(object obj)
+        {
+            bool equaled = false;
+            if (obj is Type type)
+            {
+                equaled = type.GetHashCode().Equals(this.GetHashCode());
+            }
+
+            return equaled;
+        }
     }
 }

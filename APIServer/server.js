@@ -131,7 +131,7 @@ app.post('/users', function (request, response) {
 });
 
 app.get('/users', function (request, response) {
-    db.json(`SELECT PassportID, Name, Role, IsAdmin FROM Employee`, {key: 'PassportID'}, function (err, jsonString) {
+    db.json(`SELECT PassportID, Name, Role, IsAdmin FROM Employee`, function (err, jsonString) {
         response.json(JSON.parse(jsonString))
     });
 });
@@ -143,7 +143,7 @@ app.get('/users/:passportid', function (request, response) {
 });
 
 app.get('/materials', function (request, response) {
-    db.json(`SELECT Name FROM Material`, {key: 'Name'}, function (err, jsonString) {
+    db.json(`SELECT Name FROM Material`, function (err, jsonString) {
         response.json(JSON.parse(jsonString))
     });
 });
@@ -166,7 +166,7 @@ app.post('/materials', function (request, response) {
 });
 
 app.get('/chemicalagents', function (request, response) {
-    db.json(`SELECT Name FROM ChemicalAgent`, {key: 'Name'}, function (err, jsonString) {
+    db.json(`SELECT Name FROM ChemicalAgent`, function (err, jsonString) {
         response.json(JSON.parse(jsonString))
     });
 });
@@ -189,7 +189,7 @@ app.post('/chemicalagents', function (request, response) {
 });
 
 app.get('/clients', function (request, response) {
-    db.json(`SELECT * FROM Client`, {key: 'ID'}, function (err, jsonString) {
+    db.json(`SELECT * FROM Client`, function (err, jsonString) {
         response.json(JSON.parse(jsonString))
     });
 });
@@ -220,7 +220,7 @@ app.get('/clients/:id', function (request, response) {
 });
 
 app.get('/results', function (request, response) {
-    db.json(`SELECT * FROM Result`, {key: 'Result'}, function (err, jsonString) {
+    db.json(`SELECT * FROM Result`, function (err, jsonString) {
         response.json(JSON.parse(jsonString))
     });
 });
@@ -236,7 +236,7 @@ app.get('/roles', function (request, response) {
         else{
             query = `SELECT Name FROM Role`
         }
-        db.json(query, {key: 'Name'}, function (err, jsonString) {
+        db.json(query, function (err, jsonString) {
             response.json(JSON.parse(jsonString))
         });
     });
@@ -271,7 +271,7 @@ app.post('/roles', function (request, response) {
 });
 
 app.get('/types', function (request, response) {
-    db.json(`SELECT * FROM Type`, {key: 'Name'}, function (err, jsonString) {
+    db.json(`SELECT * FROM Type`, function (err, jsonString) {
         response.json(JSON.parse(jsonString))
     });
 });
@@ -298,7 +298,7 @@ app.post('/types', function (request, response) {
 });
 
 app.get('/cleanings', function (request, response) {
-    db.json(`SELECT * FROM Cleaning`, {key: 'ID'}, function (err, jsonString) {
+    db.json(`SELECT * FROM Cleaning`, function (err, jsonString) {
         response.json(JSON.parse(jsonString))
     });
 });
@@ -335,7 +335,7 @@ app.get('/cleanings/:id', function (request, response) {
 });
 
 app.get('/things', function (request, response) {
-    db.json(`SELECT * FROM Thing`, {key: 'ID'}, function (err, jsonString) {
+    db.json(`SELECT * FROM Thing`, function (err, jsonString) {
         response.json(JSON.parse(jsonString))
     });
 });
@@ -370,7 +370,7 @@ app.get('/things/:id', function (request, response) {
 });
 
 app.get('/cleaningorders', function (request, response) {
-    db.json(`SELECT * FROM CleaningOrder`, {key: 'ID'}, function (err, jsonString) {
+    db.json(`SELECT * FROM CleaningOrder`, function (err, jsonString) {
         response.json(JSON.parse(jsonString))
     });
 });

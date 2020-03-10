@@ -1,18 +1,11 @@
-﻿using System;
-using System.CodeDom.Compiler;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
+﻿using System.IO;
 using System.Net.Http;
-using System.Net.Http.Headers;
-using System.Text;
-using System.Threading.Tasks;
 using DryCleaningAPI.Exceptions;
 using Newtonsoft.Json;
 
 namespace DryCleaningAPI.Http
 {
-    class Requestor
+    internal class Requestor
     {
         private HttpClient _client;
         private JsonSerializer _jsonSerializer;
@@ -27,7 +20,7 @@ namespace DryCleaningAPI.Http
             EnsureSuccessStatusCode(responseMessage.Result);
             return ReadResponse<T>(responseMessage.Result);
         }
-        public T Put<T>(string url, FormUrlEncodedContent data)
+        public T Put<T>(string url, FormUrlEncodedContent data = null)
         {
             var responseMessage = _client.PutAsync(url, data);
             EnsureSuccessStatusCode(responseMessage.Result);
@@ -64,6 +57,11 @@ namespace DryCleaningAPI.Http
             string response = responseMessage.Content.ReadAsStringAsync().Result;
             var result = _jsonSerializer.Deserialize<T>(new JsonTextReader(new StringReader(response)));
             return result;
+        }
+
+        public void AddHeader(string name, string value)
+        {
+            _client.DefaultRequestHeaders.Add(name, value);
         }
     }
 }
