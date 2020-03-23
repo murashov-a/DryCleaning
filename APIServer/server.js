@@ -130,6 +130,75 @@ app.post('/users', function (request, response) {
     });
 });
 
+app.delete('/users/:passportid', function (request, response) {
+    db.json(`SELECT IsAdmin FROM Employee WHERE PassportID = '${response.locals.passportid}'`, function (err, jsonString) {
+        var user = JSON.parse(jsonString)[0]
+        if(user.IsAdmin || response.locals.passportid == request.params.passportid)
+        {
+            db.json(`DELETE FROM Employee WHERE PassportID = '${request.params.passportid}'`, function (err, jsonString) {
+                if (err)
+                {
+                    response.status(500).json({ message: err.message })
+                }
+                else
+                {
+                    response.status(200).json({ message: "OK" })
+                }
+            });
+        }
+        else
+        {
+            response.status(403).json({ message: "403 Forbidden" })
+        }
+    });
+});
+
+app.put('/users/:passportid', function (request, response) {
+    db.json(`SELECT IsAdmin FROM Employee WHERE PassportID = '${response.locals.passportid}'`, function (err, jsonString) {
+        var user = JSON.parse(jsonString)[0]
+        
+        var newPassportID = request.query.newPassportID == null || request.query.newPassportID == '' ? "null" : `"${request.query.newPassportID}"`
+        var newName = request.query.newName == null || request.query.newName == '' ? "null" : `"${request.query.newName}"`
+        var newPassword = request.query.newPassword == null || request.query.newPassword == '' ? "null" : `"${md5(request.query.newPassword)}"`
+
+        var newRole = "null" //only for admin
+        var newIsAdmin = "null" //only for admin
+
+        if(user.IsAdmin)
+        {
+            var newRole = request.query.newRole == null || request.query.newRole == '' ? "null" : `"${request.query.newRole}"`
+            var newIsAdmin = request.query.newIsAdmin == null || request.query.newIsAdmin == '' ? "null" : (request.query.newIsAdmin.toLowerCase() === 'true')
+        }
+
+        if(!user.IsAdmin && request.params.passportid != response.locals.passportid) //query passport != current passport
+        {
+            response.status(403).json({ message: "Запрещено изменение не своего пользователя" })
+        }
+        else
+        {
+            var sqlQuery = `UPDATE Employee
+                            SET
+                            PassportID = coalesce(${newPassportID}, PassportID),
+                            Name = coalesce(${newName}, Name),
+                            Password = coalesce(${newPassword}, Password),
+                            Role = coalesce(${newRole}, Role),
+                            IsAdmin = coalesce(${newIsAdmin}, IsAdmin)
+                            WHERE PassportID = '${request.params.passportid}'`
+            db.json(sqlQuery,
+                function(err){
+                    if (err){
+                        response.status(500).json({ message: err.message })
+                    }
+                    else{
+                        db.json(`SELECT PassportID, Name, Role, IsAdmin FROM Employee WHERE PassportID = '${request.params.passportid}'`, function (err, jsonString) {
+                            response.json(JSON.parse(jsonString)[0])
+                        });
+                    }
+                });
+        }
+    });
+});
+
 app.get('/users', function (request, response) {
     db.json(`SELECT PassportID, Name, Role, IsAdmin FROM Employee`, function (err, jsonString) {
         response.json(JSON.parse(jsonString))
@@ -234,7 +303,7 @@ app.get('/roles', function (request, response) {
             query = `SELECT Name, Salary FROM Role`
         }
         else{
-            query = `SELECT Name FROM Role`
+            query = `SELECT Name, null FROM Role`
         }
         db.json(query, function (err, jsonString) {
             response.json(JSON.parse(jsonString))
@@ -265,6 +334,59 @@ app.post('/roles', function (request, response) {
             }
         }
         else{
+            response.status(403).json({ message: "403 Forbidden" })
+        }
+    });
+});
+
+app.put('/roles/:name', function (request, response) {
+    db.json(`SELECT IsAdmin FROM Employee WHERE PassportID = '${response.locals.passportid}'`, function (err, jsonString) {
+        var user = JSON.parse(jsonString)[0]
+        if(user.IsAdmin)
+        {
+            var newName = request.query.newName == null || request.query.newName == '' ? "null" : `"${request.query.newName}"`
+            var newSalary = request.query.newSalary == null || request.query.newSalary == '' ? "null" : `"${request.query.newSalary}"`
+            
+            var sqlQuery = `UPDATE Role
+                SET
+                Name = coalesce(${newName}, Name),
+                Salary = coalesce(${newSalary}, Salary)
+                WHERE Name = '${request.params.name}'`
+            db.json(sqlQuery,
+            function(err){
+                if (err){
+                    response.status(500).json({ message: err.message })
+                }
+                else{
+                    response.status(200).json({ message: "OK" })
+                }
+            });
+        }
+        else
+        {
+            response.status(403).json({ message: "403 Forbidden" })
+        }
+    });
+});
+
+app.delete('/roles/:name', function (request, response) {
+    db.json(`SELECT IsAdmin FROM Employee WHERE PassportID = '${response.locals.passportid}'`, function (err, jsonString) {
+        var user = JSON.parse(jsonString)[0]
+        if(user.IsAdmin)
+        {
+            db.json(`DELETE FROM Role WHERE Name = '${request.params.name}'`, function (err, jsonString) {
+                if (err)
+                {
+                    response.status(500).json({ message: err.message })
+                }
+                else
+                {
+                    response.status(200).json({ message: "OK" })
+                }
+            });
+        }
+        else
+        {
             response.status(403).json({ message: "403 Forbidden" })
         }
     });

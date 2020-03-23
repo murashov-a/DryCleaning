@@ -28,66 +28,97 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.nameToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.uSERNAMEToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.logoutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.menuStrip1.SuspendLayout();
+            this.сотрудникиToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuStrip_Panel = new System.Windows.Forms.MenuStrip();
+            this.menuStrip_Panel.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // menuStrip1
-            // 
-            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.nameToolStripMenuItem});
-            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
-            this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(800, 24);
-            this.menuStrip1.TabIndex = 0;
-            this.menuStrip1.Text = "menuStrip1";
             // 
             // nameToolStripMenuItem
             // 
             this.nameToolStripMenuItem.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
             this.nameToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.uSERNAMEToolStripMenuItem,
+            this.toolStripSeparator2,
             this.settingsToolStripMenuItem,
             this.toolStripSeparator1,
             this.logoutToolStripMenuItem});
+            this.nameToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 12F);
             this.nameToolStripMenuItem.Name = "nameToolStripMenuItem";
-            this.nameToolStripMenuItem.Size = new System.Drawing.Size(33, 20);
-            this.nameToolStripMenuItem.Text = "{0}";
+            this.nameToolStripMenuItem.Size = new System.Drawing.Size(87, 25);
+            this.nameToolStripMenuItem.Text = "Профиль";
+            this.nameToolStripMenuItem.DropDownOpening += new System.EventHandler(this.nameToolStripMenuItem_DropDownOpening);
+            // 
+            // uSERNAMEToolStripMenuItem
+            // 
+            this.uSERNAMEToolStripMenuItem.Enabled = false;
+            this.uSERNAMEToolStripMenuItem.Name = "uSERNAMEToolStripMenuItem";
+            this.uSERNAMEToolStripMenuItem.Size = new System.Drawing.Size(169, 26);
+            this.uSERNAMEToolStripMenuItem.Text = "USER_NAME";
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(166, 6);
             // 
             // settingsToolStripMenuItem
             // 
             this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
-            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.settingsToolStripMenuItem.Size = new System.Drawing.Size(169, 26);
             this.settingsToolStripMenuItem.Text = "Настройки";
             this.settingsToolStripMenuItem.Click += new System.EventHandler(this.settingsToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(177, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(166, 6);
             // 
             // logoutToolStripMenuItem
             // 
             this.logoutToolStripMenuItem.Name = "logoutToolStripMenuItem";
-            this.logoutToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.logoutToolStripMenuItem.Size = new System.Drawing.Size(169, 26);
             this.logoutToolStripMenuItem.Text = "Выход";
             this.logoutToolStripMenuItem.Click += new System.EventHandler(this.logoutToolStripMenuItem_Click);
             // 
+            // сотрудникиToolStripMenuItem
+            // 
+            this.сотрудникиToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 12F);
+            this.сотрудникиToolStripMenuItem.Name = "сотрудникиToolStripMenuItem";
+            this.сотрудникиToolStripMenuItem.Size = new System.Drawing.Size(109, 25);
+            this.сотрудникиToolStripMenuItem.Text = "Сотрудники";
+            this.сотрудникиToolStripMenuItem.Click += new System.EventHandler(this.сотрудникиToolStripMenuItem_Click);
+            // 
+            // menuStrip_Panel
+            // 
+            this.menuStrip_Panel.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.nameToolStripMenuItem,
+            this.сотрудникиToolStripMenuItem});
+            this.menuStrip_Panel.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip_Panel.Name = "menuStrip_Panel";
+            this.menuStrip_Panel.Padding = new System.Windows.Forms.Padding(9, 3, 0, 3);
+            this.menuStrip_Panel.Size = new System.Drawing.Size(1200, 31);
+            this.menuStrip_Panel.TabIndex = 0;
+            this.menuStrip_Panel.Text = "menuStrip1";
+            // 
             // MainForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.menuStrip1);
-            this.MainMenuStrip = this.menuStrip1;
+            this.ClientSize = new System.Drawing.Size(1200, 692);
+            this.Controls.Add(this.menuStrip_Panel);
+            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.MainMenuStrip = this.menuStrip_Panel;
+            this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Хим чистка";
-            this.menuStrip1.ResumeLayout(false);
-            this.menuStrip1.PerformLayout();
+            this.menuStrip_Panel.ResumeLayout(false);
+            this.menuStrip_Panel.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -95,10 +126,13 @@
 
         #endregion
 
-        private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem nameToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem uSERNAMEToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripMenuItem settingsToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripMenuItem logoutToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem сотрудникиToolStripMenuItem;
+        private System.Windows.Forms.MenuStrip menuStrip_Panel;
     }
 }

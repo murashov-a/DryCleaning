@@ -1,4 +1,5 @@
-﻿using System.Windows.Forms;
+﻿using System.Linq;
+using System.Windows.Forms;
 using DryCleaningAPI;
 
 namespace DryCleaningClient.UI
@@ -10,13 +11,6 @@ namespace DryCleaningClient.UI
         {
             _client = client;
             InitializeComponent();
-
-            UpdateToolStripUserName();
-        }
-
-        private void UpdateToolStripUserName()
-        {
-            nameToolStripMenuItem.Text = string.Format(nameToolStripMenuItem.Text, _client.Users.GetCurrentUser().Name);
         }
 
         /// <summary>
@@ -30,11 +24,12 @@ namespace DryCleaningClient.UI
             var userSettingsForm = new UserSettingsForm(currentUser, _client);
             if (userSettingsForm.ShowDialog() == DialogResult.OK)
             {
-                UpdateToolStripUserName();
-                currentUser = userSettingsForm.User;
-                // push
+                _client.Users.Edit(currentUser.PassportID, userSettingsForm.User); //.EditCurrentUser(userSettingsForm.User);
+                if (!currentUser.PassportID.Equals(userSettingsForm.User.PassportID))
+                {
+                    this.Close();
+                }
             }
-
         }
 
         /// <summary>
@@ -42,9 +37,13 @@ namespace DryCleaningClient.UI
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void logoutToolStripMenuItem_Click(object sender, System.EventArgs e)
-        {
+        private void logoutToolStripMenuItem_Click(object sender, System.EventArgs e) => this.Close();
 
+        private void сотрудникиToolStripMenuItem_Click(object sender, System.EventArgs e)
+        {
+            new UsersForm(_client).ShowDialog();
         }
+
+        private void nameToolStripMenuItem_DropDownOpening(object sender, System.EventArgs e) => uSERNAMEToolStripMenuItem.Text = $"{_client.Users.GetCurrentUser().Name}";
     }
 }

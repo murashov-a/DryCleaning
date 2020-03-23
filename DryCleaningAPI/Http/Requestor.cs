@@ -39,7 +39,13 @@ namespace DryCleaningAPI.Http
             EnsureSuccessStatusCode(responseMessage.Result);
         }
 
-        public void Put(string url, FormUrlEncodedContent data)
+        public void Delete(string url)
+        {
+            var responseMessage = _client.DeleteAsync(url);
+            EnsureSuccessStatusCode(responseMessage.Result);
+        }
+
+        public void Put(string url, FormUrlEncodedContent data = null)
         {
             var responseMessage = _client.PutAsync(url, data);
             EnsureSuccessStatusCode(responseMessage.Result);

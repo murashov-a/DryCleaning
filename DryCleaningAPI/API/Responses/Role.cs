@@ -32,8 +32,18 @@ namespace DryCleaningClient.API.Responses
             {
                 equaled = role.GetHashCode().Equals(this.GetHashCode());
             }
-
             return equaled;
         }
+
+        public Role Clone()
+        {
+            return new Role() { Name = Name, Salary = Salary};
+        }
+
+        public static readonly Role Default = new Role()
+        {
+            Name = "",
+            Salary = null
+        };
     }
 }

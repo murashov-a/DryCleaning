@@ -22,19 +22,20 @@ namespace DryCleaningClient.UI
 
         public UserSettingsForm(User user, DryCleaningAPI.DryCleaningClient client)
         {
-            User = user;
+            User = user.Clone();
             _client = client;
 
             InitializeComponent();
 
-            textBox_PassportID.Text = string.Format(textBox_PassportID.Text, user.PassportID);
-            textBox_Name.Text = string.Format(textBox_Name.Text, user.Name);
+            textBox_PassportID.Text = string.Format(textBox_PassportID.Text, User.PassportID);
+            textBox_Name.Text = string.Format(textBox_Name.Text, User.Name);
 
             //only admin can edit role and isAdmin
-            comboBox_Role.Enabled = checkBox_IsAdmin.Enabled = user.IsAdmin;
-            checkBox_IsAdmin.CheckState = user.IsAdmin ? CheckState.Checked : CheckState.Unchecked;
+            var currentUser = _client.Users.GetCurrentUser();
+            comboBox_Role.Enabled = checkBox_IsAdmin.Enabled = currentUser.IsAdmin;
+            checkBox_IsAdmin.CheckState = User.IsAdmin ? CheckState.Checked : CheckState.Unchecked;
             comboBox_Role.Items.AddRange(client.Roles.GetRoles());
-            comboBox_Role.Text = user.Role;
+            comboBox_Role.Text = User.Role;
 
             CheckCurrectInputs();
         }
@@ -64,7 +65,7 @@ namespace DryCleaningClient.UI
             bool passportValid = false;
             if(Int32.TryParse(textBox_PassportID.Text, out passportId))
             {
-                passportValid = passportId == _client.Users.GetCurrentUser().PassportID || !_client.Users.GetUsers().Any(x => x.PassportID == passportId);
+                passportValid = passportId == User.PassportID || !_client.Users.GetUsers().Any(x => x.PassportID == passportId);
             }
 
             //name
@@ -89,5 +90,6 @@ namespace DryCleaningClient.UI
         private void textBox_Name_TextChanged(object sender, EventArgs e) => CheckCurrectInputs();
         private void comboBox_Role_TextChanged(object sender, EventArgs e) => CheckCurrectInputs();
 
+        private void button_Save_Click(object sender, EventArgs e) => this.DialogResult = DialogResult.OK;
     }
 }

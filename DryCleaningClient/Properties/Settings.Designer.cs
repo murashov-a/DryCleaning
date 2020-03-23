@@ -22,5 +22,17 @@ namespace DryCleaningClient.Properties {
                 return defaultInstance;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://localhost")]
+        public string API {
+            get {
+                return ((string)(this["API"]));
+            }
+            set {
+                this["API"] = value;
+            }
+        }
     }
 }

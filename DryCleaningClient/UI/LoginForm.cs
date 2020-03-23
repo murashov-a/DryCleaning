@@ -30,7 +30,7 @@ namespace DryCleaningClient
                 DryCleaningAPI.DryCleaningClient client = null;
                 try
                 {
-                    client = new DryCleaningAPI.DryCleaningClient("http://localhost", passportid, password);
+                    client = new DryCleaningAPI.DryCleaningClient(Properties.Settings.Default.API, passportid, password);
                 }
                 catch (DryCleaningException exception)
                 {

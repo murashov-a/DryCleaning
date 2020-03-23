@@ -1,24 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel;
+using BrightIdeasSoftware;
 
 namespace DryCleaningClient.API.Responses
 {
     public class User
     {
-        [DisplayName("Номер паспорта")]
+        [OLVColumn("Номер паспорта")]
         public int PassportID { get; set; }
 
-        [DisplayName("ФИО")]
+        [OLVColumn("ФИО")]
         public string Name { get; set; }
 
-        [DisplayName("Должность")]
+        [OLVColumn("Должность")]
         public string Role { get; set; }
 
-        [DisplayName("Права администратора")]
+        [OLVColumn("Права администратора")]
         public bool IsAdmin { get; set; }
 
         /// <summary>
@@ -42,5 +38,19 @@ namespace DryCleaningClient.API.Responses
 
             return equaled;
         }
+
+        public User Clone()
+        {
+            return new User() { IsAdmin = IsAdmin, Name = Name, PassportID = PassportID, Password = Password, Role = Role };
+        }
+
+        public static readonly User Default = new User()
+        {
+            Name = "",
+            IsAdmin = false,
+            Role = "",
+            Password = "",
+            PassportID = 0
+        };
     }
 }
