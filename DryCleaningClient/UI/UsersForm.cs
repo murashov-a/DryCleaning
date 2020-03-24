@@ -49,25 +49,6 @@ namespace DryCleaningClient.UI
             objectListView_Users.Update();
         }
 
-        private void редактироватьToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            if (objectListView_Users.SelectedObject is User user)
-            {
-                var userSettingsForm = new UserSettingsForm(user, _client);
-                if (userSettingsForm.ShowDialog() == DialogResult.OK)
-                {
-                    _client.Users.Edit(user.PassportID, userSettingsForm.User);
-                    if (user.PassportID == _currentUser.PassportID && !_currentUser.PassportID.Equals(userSettingsForm.User.PassportID))
-                    {
-                        this.Close();
-                    }
-                }
-
-            }
-
-            UpdateUsersList();
-        }
-
         private void button_Edit_Click(object sender, EventArgs e)
         {
             if (objectListView_Users.SelectedObject is User user)
@@ -119,7 +100,7 @@ namespace DryCleaningClient.UI
         {
             if (objectListView_Roles.SelectedObject is Role role)
             {
-                var roleSettingsForm = new RoleSettingsForm(role, _client);
+                var roleSettingsForm = new RoleSettingsForm(role);
                 if (roleSettingsForm.ShowDialog() == DialogResult.OK)
                 {
                     _client.Roles.Edit(role.Name, roleSettingsForm.Role);
@@ -149,7 +130,7 @@ namespace DryCleaningClient.UI
         private void button_RoleAdd_Click(object sender, EventArgs e)
         {
             var role = Role.Default;
-            var roleSettingsForm = new RoleSettingsForm(role, _client);
+            var roleSettingsForm = new RoleSettingsForm(role);
             if (roleSettingsForm.ShowDialog() == DialogResult.OK)
             {
                 _client.Roles.Add(roleSettingsForm.Role);

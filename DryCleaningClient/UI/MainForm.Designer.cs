@@ -36,6 +36,11 @@
             this.logoutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.сотрудникиToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip_Panel = new System.Windows.Forms.MenuStrip();
+            this.клиентыToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.материалыToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.типыВещейToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.результатыToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.химСредстваcommingSoonToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip_Panel.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -97,13 +102,58 @@
             // 
             this.menuStrip_Panel.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.nameToolStripMenuItem,
-            this.сотрудникиToolStripMenuItem});
+            this.сотрудникиToolStripMenuItem,
+            this.клиентыToolStripMenuItem,
+            this.материалыToolStripMenuItem,
+            this.типыВещейToolStripMenuItem,
+            this.результатыToolStripMenuItem,
+            this.химСредстваcommingSoonToolStripMenuItem});
             this.menuStrip_Panel.Location = new System.Drawing.Point(0, 0);
             this.menuStrip_Panel.Name = "menuStrip_Panel";
             this.menuStrip_Panel.Padding = new System.Windows.Forms.Padding(9, 3, 0, 3);
             this.menuStrip_Panel.Size = new System.Drawing.Size(1200, 31);
             this.menuStrip_Panel.TabIndex = 0;
             this.menuStrip_Panel.Text = "menuStrip1";
+            // 
+            // клиентыToolStripMenuItem
+            // 
+            this.клиентыToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 12F);
+            this.клиентыToolStripMenuItem.Name = "клиентыToolStripMenuItem";
+            this.клиентыToolStripMenuItem.Size = new System.Drawing.Size(83, 25);
+            this.клиентыToolStripMenuItem.Text = "Клиенты";
+            this.клиентыToolStripMenuItem.Click += new System.EventHandler(this.клиентыToolStripMenuItem_Click);
+            // 
+            // материалыToolStripMenuItem
+            // 
+            this.материалыToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 12F);
+            this.материалыToolStripMenuItem.Name = "материалыToolStripMenuItem";
+            this.материалыToolStripMenuItem.Size = new System.Drawing.Size(104, 25);
+            this.материалыToolStripMenuItem.Text = "Материалы";
+            this.материалыToolStripMenuItem.Click += new System.EventHandler(this.материалыToolStripMenuItem_Click);
+            // 
+            // типыВещейToolStripMenuItem
+            // 
+            this.типыВещейToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 12F);
+            this.типыВещейToolStripMenuItem.Name = "типыВещейToolStripMenuItem";
+            this.типыВещейToolStripMenuItem.Size = new System.Drawing.Size(109, 25);
+            this.типыВещейToolStripMenuItem.Text = "Типы вещей";
+            this.типыВещейToolStripMenuItem.Click += new System.EventHandler(this.типыВещейToolStripMenuItem_Click);
+            // 
+            // результатыToolStripMenuItem
+            // 
+            this.результатыToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 12F);
+            this.результатыToolStripMenuItem.Name = "результатыToolStripMenuItem";
+            this.результатыToolStripMenuItem.Size = new System.Drawing.Size(103, 25);
+            this.результатыToolStripMenuItem.Text = "Результаты";
+            this.результатыToolStripMenuItem.Click += new System.EventHandler(this.результатыToolStripMenuItem_Click);
+            // 
+            // химСредстваcommingSoonToolStripMenuItem
+            // 
+            this.химСредстваcommingSoonToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 12F);
+            this.химСредстваcommingSoonToolStripMenuItem.Name = "химСредстваcommingSoonToolStripMenuItem";
+            this.химСредстваcommingSoonToolStripMenuItem.Size = new System.Drawing.Size(118, 25);
+            this.химСредстваcommingSoonToolStripMenuItem.Text = "Хим средства";
+            this.химСредстваcommingSoonToolStripMenuItem.Click += new System.EventHandler(this.химСредстваcommingSoonToolStripMenuItem_Click);
             // 
             // MainForm
             // 
@@ -134,5 +184,10 @@
         private System.Windows.Forms.ToolStripMenuItem logoutToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem сотрудникиToolStripMenuItem;
         private System.Windows.Forms.MenuStrip menuStrip_Panel;
+        private System.Windows.Forms.ToolStripMenuItem клиентыToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem материалыToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem типыВещейToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem результатыToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem химСредстваcommingSoonToolStripMenuItem;
     }
 }

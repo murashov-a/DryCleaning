@@ -27,5 +27,15 @@ namespace DryCleaningClient.API.Responses
 
             return equaled;
         }
+
+        public ChemicalAgent Clone()
+        {
+            return new ChemicalAgent() { Name = Name };
+        }
+
+        public static readonly ChemicalAgent Default = new ChemicalAgent()
+        {
+            Name = ""
+        };
     }
 }

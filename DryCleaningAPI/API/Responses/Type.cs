@@ -33,5 +33,15 @@ namespace DryCleaningClient.API.Responses
 
             return equaled;
         }
+
+        public Type Clone()
+        {
+            return new Type() { Name = Name, CleaningPrice = CleaningPrice, Compensation = Compensation};
+        }
+
+        public static readonly Type Default = new Type()
+        {
+            Name = ""
+        };
     }
 }

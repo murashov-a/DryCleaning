@@ -27,5 +27,15 @@ namespace DryCleaningClient.API.Responses
 
             return equaled;
         }
+
+        public Result Clone()
+        {
+            return new Result() { Name = Name };
+        }
+
+        public static readonly Result Default = new Result()
+        {
+            Name = ""
+        };
     }
 }

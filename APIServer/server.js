@@ -55,7 +55,7 @@ app.use((request, response, next) => {
         db.json(`SELECT * FROM Token, Employee WHERE Token.Employee = Employee.PassportID AND Token.Token = '${md5(token)}'`, function (err, jsonString) {
             var json = JSON.parse(jsonString)
             if (json.length == 1) {
-                console.log(`Incoming request from '${json[0].Name}'`)
+                console.log(`Request from '${json[0].Name}(${json[0].PassportID})' ${request.originalUrl}`)
                 // only authorization success next methods
                 response.locals.passportid = json[0].Employee
                 next()
@@ -217,6 +217,12 @@ app.get('/materials', function (request, response) {
     });
 });
 
+app.get('/materials/:name', function (request, response) {
+    db.json(`SELECT Name FROM Material WHERE Name = '${request.params.name}'`, function (err, jsonString) {
+        response.json(JSON.parse(jsonString)[0])
+    });
+});
+
 app.post('/materials', function (request, response) {
     if(request.query.name == null){
             response.status(400).json({ message: "400 Bad Request" })
@@ -232,6 +238,39 @@ app.post('/materials', function (request, response) {
                 }
         });
     }
+});
+
+app.put('/materials/:name', function (request, response) {
+    var name = request.query.name == null || request.query.name == '' ? "null" : `"${request.query.name}"`
+
+    var sqlQuery = `UPDATE Material
+                    SET
+                    Name = coalesce(${name}, Name)
+                    WHERE Name = '${request.params.name}'`
+    db.json(sqlQuery,
+        function(err){
+            if (err){
+                response.status(500).json({ message: err.message })
+            }
+            else{
+                db.json(`SELECT * FROM Material WHERE Name = '${name}'`, function (err, jsonString) {
+                    response.status(200).json({ message: "OK" })
+                });
+            }
+        });
+});
+
+app.delete('/materials/:name', function (request, response) {
+    db.json(`DELETE FROM Material WHERE Name = '${request.params.name}'`, function (err, jsonString) {
+        if (err)
+        {
+            response.status(500).json({ message: err.message })
+        }
+        else
+        {
+            response.status(200).json({ message: "OK" })
+        }
+    });
 });
 
 app.get('/chemicalagents', function (request, response) {
@@ -257,6 +296,39 @@ app.post('/chemicalagents', function (request, response) {
     }
 });
 
+app.put('/chemicalagents/:name', function (request, response) {
+    var name = request.query.name == null || request.query.name == '' ? "null" : `"${request.query.name}"`
+
+    var sqlQuery = `UPDATE ChemicalAgent
+                    SET
+                    Name = coalesce(${name}, Name)
+                    WHERE Name = '${request.params.name}'`
+    db.json(sqlQuery,
+        function(err){
+            if (err){
+                response.status(500).json({ message: err.message })
+            }
+            else{
+                db.json(`SELECT * FROM ChemicalAgent WHERE Name = '${name}'`, function (err, jsonString) {
+                    response.status(200).json({ message: "OK" })
+                });
+            }
+        });
+});
+
+app.delete('/chemicalagents/:name', function (request, response) {
+    db.json(`DELETE FROM ChemicalAgent WHERE Name = '${request.params.name}'`, function (err, jsonString) {
+        if (err)
+        {
+            response.status(500).json({ message: err.message })
+        }
+        else
+        {
+            response.status(200).json({ message: "OK" })
+        }
+    });
+});
+
 app.get('/clients', function (request, response) {
     db.json(`SELECT * FROM Client`, function (err, jsonString) {
         response.json(JSON.parse(jsonString))
@@ -276,7 +348,12 @@ app.post('/clients', function (request, response) {
                     response.status(500).json({ message: err.message })
                 }
                 else{
-                    response.status(200).json({ message: "OK" })
+                    db.json(`SELECT seq FROM sqlite_sequence WHERE name = "Client"`, function (err, jsonString) {
+                        var seq = JSON.parse(jsonString)[0].seq
+                        db.json(`SELECT * FROM Client WHERE ID = '${seq}'`, function (err, jsonString) {
+                            response.json(JSON.parse(jsonString)[0])
+                        });
+                    });
                 }
         });
     }
@@ -288,9 +365,94 @@ app.get('/clients/:id', function (request, response) {
     });
 });
 
+app.put('/clients/:id', function (request, response) {
+    var name = request.query.name == null || request.query.name == '' ? "null" : `"${request.query.name}"`
+    var telephone = request.query.telephone == null || request.query.telephone == '' ? "null" : `"${request.query.telephone}"`
+
+    var sqlQuery = `UPDATE Client
+                    SET
+                    Name = coalesce(${name}, Name),
+                    Telephone = coalesce(${telephone}, Telephone)
+                    WHERE ID = '${request.params.id}'`
+    db.json(sqlQuery,
+        function(err){
+            if (err){
+                response.status(500).json({ message: err.message })
+            }
+            else{
+                db.json(`SELECT * FROM Client WHERE ID = '${request.params.id}'`, function (err, jsonString) {
+                    response.json(JSON.parse(jsonString)[0])
+                });
+            }
+        });
+});
+
+app.delete('/clients/:id', function (request, response) {
+    db.json(`DELETE FROM Client WHERE ID = '${request.params.id}'`, function (err, jsonString) {
+        if (err)
+        {
+            response.status(500).json({ message: err.message })
+        }
+        else
+        {
+            response.status(200).json({ message: "OK" })
+        }
+    });
+});
+
 app.get('/results', function (request, response) {
     db.json(`SELECT * FROM Result`, function (err, jsonString) {
         response.json(JSON.parse(jsonString))
+    });
+});
+
+app.post('/results', function (request, response) {
+    if(request.query.name == null){
+            response.status(400).json({ message: "400 Bad Request" })
+    }
+    else{
+        db.json(`INSERT INTO Result VALUES(
+            "${request.query.name}");`, function (err, jsonString) {
+                if (err){
+                    response.status(500).json({ message: err.message })
+                }
+                else{
+                    response.status(200).json({ message: "OK" })
+                }
+        });
+    }
+});
+
+app.put('/results/:name', function (request, response) {
+    var name = request.query.name == null || request.query.name == '' ? "null" : `"${request.query.name}"`
+
+    var sqlQuery = `UPDATE Result
+                    SET
+                    Name = coalesce(${name}, Name)
+                    WHERE Name = '${request.params.name}'`
+    db.json(sqlQuery,
+        function(err){
+            if (err){
+                response.status(500).json({ message: err.message })
+            }
+            else{
+                db.json(`SELECT * FROM Result WHERE Name = '${name}'`, function (err, jsonString) {
+                    response.status(200).json({ message: "OK" })
+                });
+            }
+        });
+});
+
+app.delete('/results/:name', function (request, response) {
+    db.json(`DELETE FROM Result WHERE Name = '${request.params.name}'`, function (err, jsonString) {
+        if (err)
+        {
+            response.status(500).json({ message: err.message })
+        }
+        else
+        {
+            response.status(200).json({ message: "OK" })
+        }
     });
 });
 
@@ -395,6 +557,41 @@ app.delete('/roles/:name', function (request, response) {
 app.get('/types', function (request, response) {
     db.json(`SELECT * FROM Type`, function (err, jsonString) {
         response.json(JSON.parse(jsonString))
+    });
+});
+
+app.put('/types/:name', function (request, response) {
+    var name = request.query.name == null || request.query.name == '' ? "null" : `"${request.query.name}"`
+    var compensation = request.query.compensation == null || request.query.compensation == '' ? "null" : `"${request.query.compensation}"`
+    var cleaningprice = request.query.cleaningprice == null || request.query.cleaningprice == '' ? "null" : `"${request.query.cleaningprice}"`
+
+    var sqlQuery = `UPDATE Type
+                    SET
+                    Name = coalesce(${name}, Name),
+                    Compensation = coalesce(${compensation}, Compensation),
+                    CleaningPrice = coalesce(${cleaningprice}, CleaningPrice)
+                    WHERE Name = '${request.params.name}'`
+    db.json(sqlQuery,
+        function(err){
+            if (err){
+                response.status(500).json({ message: err.message })
+            }
+            else{
+                response.status(200).json({ message: "OK" })
+            }
+        });
+});
+
+app.delete('/types/:name', function (request, response) {
+    db.json(`DELETE FROM Type WHERE Name = '${request.params.name}'`, function (err, jsonString) {
+        if (err)
+        {
+            response.status(500).json({ message: err.message })
+        }
+        else
+        {
+            response.status(200).json({ message: "OK" })
+        }
     });
 });
 

@@ -17,11 +17,9 @@ namespace DryCleaningClient.UI
         /// Modified role
         /// </summary>
         public Role Role { get; private set; }
-        private readonly DryCleaningAPI.DryCleaningClient _client;
-        public RoleSettingsForm(Role role, DryCleaningAPI.DryCleaningClient client)
+        public RoleSettingsForm(Role role)
         {
             Role = role.Clone();
-            _client = client;
 
             InitializeComponent();
 

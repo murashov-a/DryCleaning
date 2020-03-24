@@ -33,5 +33,13 @@ namespace DryCleaningClient.API.Responses
 
             return equaled;
         }
+
+        public Client Clone()
+        {
+            return new Client() { ID = ID, Name = Name, Telephone = Telephone };
+        }
+
+        [Obsolete("ID выдаёт БД, поэтому невозможно создать экземпляр по умолчанию", true)]
+        public static Client Default;
     }
 }

@@ -49,6 +49,30 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="UI\ChemicalAgentSettingsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\ChemicalAgentSettingsForm.Designer.cs">
+      <DependentUpon>ChemicalAgentSettingsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\ChemicalAgentsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\ChemicalAgentsForm.Designer.cs">
+      <DependentUpon>ChemicalAgentsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\ClientSettingsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\ClientSettingsForm.Designer.cs">
+      <DependentUpon>ClientSettingsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\ClientsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\ClientsForm.Designer.cs">
+      <DependentUpon>ClientsForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\LoginForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -63,11 +87,47 @@
     <Compile Include="UI\MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="UI\MaterialSettingsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\MaterialSettingsForm.Designer.cs">
+      <DependentUpon>MaterialSettingsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\MaterialsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\MaterialsForm.Designer.cs">
+      <DependentUpon>MaterialsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\ResultSettingsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\ResultSettingsForm.Designer.cs">
+      <DependentUpon>ResultSettingsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\ResultsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\ResultsForm.Designer.cs">
+      <DependentUpon>ResultsForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\RoleSettingsForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="UI\RoleSettingsForm.Designer.cs">
       <DependentUpon>RoleSettingsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\TypeSettingsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\TypeSettingsForm.Designer.cs">
+      <DependentUpon>TypeSettingsForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\TypesForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\TypesForm.Designer.cs">
+      <DependentUpon>TypesForm.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\UserSettingsForm.cs">
       <SubType>Form</SubType>
@@ -90,14 +150,44 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="UI\ChemicalAgentSettingsForm.resx">
+      <DependentUpon>ChemicalAgentSettingsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\ChemicalAgentsForm.resx">
+      <DependentUpon>ChemicalAgentsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\ClientSettingsForm.resx">
+      <DependentUpon>ClientSettingsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\ClientsForm.resx">
+      <DependentUpon>ClientsForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UI\LoginForm.resx">
       <DependentUpon>LoginForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="UI\MaterialSettingsForm.resx">
+      <DependentUpon>MaterialSettingsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\MaterialsForm.resx">
+      <DependentUpon>MaterialsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\ResultSettingsForm.resx">
+      <DependentUpon>ResultSettingsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\ResultsForm.resx">
+      <DependentUpon>ResultsForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UI\RoleSettingsForm.resx">
       <DependentUpon>RoleSettingsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\TypeSettingsForm.resx">
+      <DependentUpon>TypeSettingsForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\TypesForm.resx">
+      <DependentUpon>TypesForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\UserSettingsForm.resx">
       <DependentUpon>UserSettingsForm.cs</DependentUpon>
