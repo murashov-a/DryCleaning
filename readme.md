@@ -1,4 +1,9 @@
 # API  
+## Требования
+Для запуска сервера необходимо установить:  
+* nodejs
+* пакеты: express, sqlite-json, js-md5, crypto
+
 ## Запуск API сервера из папки **APIServer**:  
 `node server.js`
 ## Использование
@@ -48,6 +53,11 @@ var dryCleaningClient = new DryCleaningAPI.DryCleaningClient("8cd7fde10d6dbad74c
 У каждого из которых есть такие методы, как `Get`, `Add`, `Edit`, `Delete` и т.п.
 
 # Приложение для сотрудников DryCleaningClient
+## Требования
+* ОС Windows
+* .NET Framework >4.8
+* ObjectListView 2.9.1
+* Newtonsoft.Json 12.0.3
 ## Авторизация
 ![image](DryCleaningClient/Images/Auth.png)
 ## Главная форма
