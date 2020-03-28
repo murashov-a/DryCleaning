@@ -2,7 +2,7 @@
 ## Требования
 Для запуска сервера необходимо установить:  
 * [NodeJS](https://nodejs.org/ru/)
-* пакеты: express, sqlite-json, js-md5, crypto (из директории **APIServer** команда `npm install express sqlite-json js-md5 crypto`)
+* Пакеты. Из директории **APIServer** команда `npm install express sqlite-json js-md5 crypto fs`)
 
 ## Запуск API сервера из директории **APIServer**:  
 `node server.js`

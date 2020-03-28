@@ -2,6 +2,9 @@ const express = require('express')
 const sqliteJson = require('sqlite-json')
 const md5 = require('js-md5');
 const crypto = require('crypto')
+const fs = require('fs');
+
+const LOG_FILE = "logging.log";
 
 const app = express()
 const port = 1994
@@ -13,7 +16,13 @@ app.listen(port,
         if (err) {
             return console.log('Error start server', err)
         }
-        console.log(`Server is listening on ${port}`)
+
+        message = `Server is listening on ${port}\r\n`
+        fs.appendFile(LOG_FILE, message, function (err) {
+            if (err) return console.log(err);
+            console.log(message)
+          });
+        
     })
 
 app.post('/authorization', function (request, response) {
@@ -35,9 +44,18 @@ app.post('/authorization', function (request, response) {
                         response.status(200).json({ token: token })
                     });
                 });
+                message = `Success authorisation '${json[0].Name}'\r\n`
+                fs.appendFile(LOG_FILE, message, function (err) {
+                    if (err) return console.log(err);
+                    console.log(message)
+                  });
             }
             else {
-                console.log(`Authorisation error for passport '${passportid}'`);
+                message = `Authorisation error for passport '${passportid}'\r\n`
+                fs.appendFile(LOG_FILE, message, function (err) {
+                    if (err) return console.log(err);
+                    console.log(message)
+                  });
                 response.status(401).json({ message: '401 Unauthorized' })
             }
         });
@@ -54,7 +72,13 @@ app.use((request, response, next) => {
         db.json(`SELECT * FROM Token, Employee WHERE Token.Employee = Employee.PassportID AND Token.Token = '${md5(token)}'`, function (err, jsonString) {
             var json = JSON.parse(jsonString)
             if (json.length == 1) {
-                console.log(`Request from '${json[0].Name}(${json[0].PassportID})' ${request.originalUrl}`)
+
+                message = `Request from '${json[0].Name}(${json[0].PassportID})' ${request.originalUrl}\r\n`
+                fs.appendFile(LOG_FILE, message, function (err) {
+                    if (err) return console.log(err);
+                    console.log(message)
+                  });
+
                 // only authorization success next methods
                 response.locals.passportid = json[0].Employee
                 next()
