@@ -7,7 +7,7 @@ const fs = require('fs');
 const LOG_FILE = "logging.log";
 
 const app = express()
-const port = 1994
+const port = process.env.PORT || 80
 
 const db = sqliteJson('DryCleaning.db3');
 
