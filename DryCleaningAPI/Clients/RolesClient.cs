@@ -2,13 +2,9 @@
 
 namespace DryCleaningAPI
 {
-    public class RolesClient
+    public class RolesClient : BaseClient
     {
-        private readonly Session _session;
-        internal RolesClient(Session session)
-        {
-            _session = session;
-        }
+        internal RolesClient(Session session) : base(session) { }
 
         public Role[] GetRoles() => _session.Requestor.Get<Role[]>("/roles");
 

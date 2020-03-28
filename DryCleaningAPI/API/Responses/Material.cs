@@ -9,7 +9,6 @@ namespace DryCleaningClient.API.Responses
 {
     public class Material
     {
-        [DisplayName("Название материала")]
         public string Name { get; set; }
 
         public override int GetHashCode()
@@ -37,5 +36,10 @@ namespace DryCleaningClient.API.Responses
         {
             Name = ""
         };
+
+        public override string ToString()
+        {
+            return Name;
+        }
     }
 }

@@ -7,13 +7,9 @@ using DryCleaningClient.API.Responses;
 
 namespace DryCleaningAPI
 {
-    public class ResultsClient
+    public class ResultsClient : BaseClient
     {
-        private readonly Session _session;
-        internal ResultsClient(Session session)
-        {
-            _session = session;
-        }
+        internal ResultsClient(Session session) : base(session) { }
 
         public Result[] GetResults() => _session.Requestor.Get<Result[]>("/results");
 

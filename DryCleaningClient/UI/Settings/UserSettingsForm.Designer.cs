@@ -50,9 +50,10 @@
             this.button_Save.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.button_Save.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button_Save.Location = new System.Drawing.Point(12, 208);
+            this.button_Save.Location = new System.Drawing.Point(18, 320);
+            this.button_Save.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.button_Save.Name = "button_Save";
-            this.button_Save.Size = new System.Drawing.Size(660, 41);
+            this.button_Save.Size = new System.Drawing.Size(990, 63);
             this.button_Save.TabIndex = 1;
             this.button_Save.Text = "Сохранить";
             this.button_Save.UseVisualStyleBackColor = true;
@@ -78,16 +79,17 @@
             this.tableLayoutPanel_Profile.Controls.Add(this.label_IsAdmin, 0, 5);
             this.tableLayoutPanel_Profile.Controls.Add(this.maskedTextBox_Password2, 1, 4);
             this.tableLayoutPanel_Profile.Controls.Add(this.checkBox_IsAdmin, 1, 5);
-            this.tableLayoutPanel_Profile.Location = new System.Drawing.Point(12, 12);
+            this.tableLayoutPanel_Profile.Location = new System.Drawing.Point(18, 18);
+            this.tableLayoutPanel_Profile.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.tableLayoutPanel_Profile.Name = "tableLayoutPanel_Profile";
             this.tableLayoutPanel_Profile.RowCount = 6;
             this.tableLayoutPanel_Profile.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel_Profile.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel_Profile.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 28F));
-            this.tableLayoutPanel_Profile.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 28F));
-            this.tableLayoutPanel_Profile.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 31F));
-            this.tableLayoutPanel_Profile.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 30F));
-            this.tableLayoutPanel_Profile.Size = new System.Drawing.Size(660, 190);
+            this.tableLayoutPanel_Profile.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 43F));
+            this.tableLayoutPanel_Profile.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 43F));
+            this.tableLayoutPanel_Profile.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 48F));
+            this.tableLayoutPanel_Profile.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 46F));
+            this.tableLayoutPanel_Profile.Size = new System.Drawing.Size(990, 292);
             this.tableLayoutPanel_Profile.TabIndex = 2;
             // 
             // label_PassportID
@@ -95,9 +97,10 @@
             this.label_PassportID.AutoSize = true;
             this.label_PassportID.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label_PassportID.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label_PassportID.Location = new System.Drawing.Point(3, 0);
+            this.label_PassportID.Location = new System.Drawing.Point(4, 0);
+            this.label_PassportID.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label_PassportID.Name = "label_PassportID";
-            this.label_PassportID.Size = new System.Drawing.Size(324, 36);
+            this.label_PassportID.Size = new System.Drawing.Size(487, 56);
             this.label_PassportID.TabIndex = 0;
             this.label_PassportID.Text = "Номер паспорта (логин):";
             // 
@@ -106,18 +109,20 @@
             this.label1.AutoSize = true;
             this.label1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label1.Location = new System.Drawing.Point(3, 36);
+            this.label1.Location = new System.Drawing.Point(4, 56);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(324, 36);
+            this.label1.Size = new System.Drawing.Size(487, 56);
             this.label1.TabIndex = 1;
             this.label1.Text = "ФИО:";
             // 
             // textBox_PassportID
             // 
             this.textBox_PassportID.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textBox_PassportID.Location = new System.Drawing.Point(333, 3);
+            this.textBox_PassportID.Location = new System.Drawing.Point(499, 5);
+            this.textBox_PassportID.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.textBox_PassportID.Name = "textBox_PassportID";
-            this.textBox_PassportID.Size = new System.Drawing.Size(324, 20);
+            this.textBox_PassportID.Size = new System.Drawing.Size(487, 26);
             this.textBox_PassportID.TabIndex = 2;
             this.textBox_PassportID.Text = "{0}";
             this.textBox_PassportID.TextChanged += new System.EventHandler(this.textBox_PassportID_TextChanged);
@@ -125,9 +130,10 @@
             // textBox_Name
             // 
             this.textBox_Name.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textBox_Name.Location = new System.Drawing.Point(333, 39);
+            this.textBox_Name.Location = new System.Drawing.Point(499, 61);
+            this.textBox_Name.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.textBox_Name.Name = "textBox_Name";
-            this.textBox_Name.Size = new System.Drawing.Size(324, 20);
+            this.textBox_Name.Size = new System.Drawing.Size(487, 26);
             this.textBox_Name.TabIndex = 3;
             this.textBox_Name.Text = "{0}";
             this.textBox_Name.TextChanged += new System.EventHandler(this.textBox_Name_TextChanged);
@@ -136,7 +142,8 @@
             // 
             this.label_Role.AutoSize = true;
             this.label_Role.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label_Role.Location = new System.Drawing.Point(3, 72);
+            this.label_Role.Location = new System.Drawing.Point(4, 112);
+            this.label_Role.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label_Role.Name = "label_Role";
             this.label_Role.Size = new System.Drawing.Size(117, 24);
             this.label_Role.TabIndex = 5;
@@ -147,19 +154,21 @@
             this.comboBox_Role.Dock = System.Windows.Forms.DockStyle.Fill;
             this.comboBox_Role.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBox_Role.FormattingEnabled = true;
-            this.comboBox_Role.Location = new System.Drawing.Point(333, 75);
+            this.comboBox_Role.Location = new System.Drawing.Point(499, 117);
+            this.comboBox_Role.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.comboBox_Role.Name = "comboBox_Role";
-            this.comboBox_Role.Size = new System.Drawing.Size(324, 21);
+            this.comboBox_Role.Size = new System.Drawing.Size(487, 28);
             this.comboBox_Role.TabIndex = 6;
             this.comboBox_Role.TextChanged += new System.EventHandler(this.comboBox_Role_TextChanged);
             // 
             // maskedTextBox_Password
             // 
             this.maskedTextBox_Password.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.maskedTextBox_Password.Location = new System.Drawing.Point(333, 103);
+            this.maskedTextBox_Password.Location = new System.Drawing.Point(499, 160);
+            this.maskedTextBox_Password.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.maskedTextBox_Password.Name = "maskedTextBox_Password";
             this.maskedTextBox_Password.PasswordChar = '*';
-            this.maskedTextBox_Password.Size = new System.Drawing.Size(324, 20);
+            this.maskedTextBox_Password.Size = new System.Drawing.Size(487, 26);
             this.maskedTextBox_Password.TabIndex = 7;
             this.maskedTextBox_Password.TextChanged += new System.EventHandler(this.MaskedTextBox_PasswordOnTextChanged);
             // 
@@ -167,7 +176,8 @@
             // 
             this.label_Password.AutoSize = true;
             this.label_Password.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label_Password.Location = new System.Drawing.Point(3, 100);
+            this.label_Password.Location = new System.Drawing.Point(4, 155);
+            this.label_Password.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label_Password.Name = "label_Password";
             this.label_Password.Size = new System.Drawing.Size(81, 24);
             this.label_Password.TabIndex = 8;
@@ -177,7 +187,8 @@
             // 
             this.label_Password2.AutoSize = true;
             this.label_Password2.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label_Password2.Location = new System.Drawing.Point(3, 128);
+            this.label_Password2.Location = new System.Drawing.Point(4, 198);
+            this.label_Password2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label_Password2.Name = "label_Password2";
             this.label_Password2.Size = new System.Drawing.Size(150, 24);
             this.label_Password2.TabIndex = 9;
@@ -187,7 +198,8 @@
             // 
             this.label_IsAdmin.AutoSize = true;
             this.label_IsAdmin.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label_IsAdmin.Location = new System.Drawing.Point(3, 159);
+            this.label_IsAdmin.Location = new System.Drawing.Point(4, 246);
+            this.label_IsAdmin.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label_IsAdmin.Name = "label_IsAdmin";
             this.label_IsAdmin.Size = new System.Drawing.Size(242, 24);
             this.label_IsAdmin.TabIndex = 10;
@@ -196,10 +208,11 @@
             // maskedTextBox_Password2
             // 
             this.maskedTextBox_Password2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.maskedTextBox_Password2.Location = new System.Drawing.Point(333, 131);
+            this.maskedTextBox_Password2.Location = new System.Drawing.Point(499, 203);
+            this.maskedTextBox_Password2.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.maskedTextBox_Password2.Name = "maskedTextBox_Password2";
             this.maskedTextBox_Password2.PasswordChar = '*';
-            this.maskedTextBox_Password2.Size = new System.Drawing.Size(324, 20);
+            this.maskedTextBox_Password2.Size = new System.Drawing.Size(487, 26);
             this.maskedTextBox_Password2.TabIndex = 11;
             this.maskedTextBox_Password2.TextChanged += new System.EventHandler(this.MaskedTextBox_PasswordOnTextChanged);
             // 
@@ -207,22 +220,25 @@
             // 
             this.checkBox_IsAdmin.AutoSize = true;
             this.checkBox_IsAdmin.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.checkBox_IsAdmin.Location = new System.Drawing.Point(333, 162);
+            this.checkBox_IsAdmin.Location = new System.Drawing.Point(499, 251);
+            this.checkBox_IsAdmin.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.checkBox_IsAdmin.Name = "checkBox_IsAdmin";
-            this.checkBox_IsAdmin.Size = new System.Drawing.Size(324, 25);
+            this.checkBox_IsAdmin.Size = new System.Drawing.Size(487, 36);
             this.checkBox_IsAdmin.TabIndex = 12;
             this.checkBox_IsAdmin.UseVisualStyleBackColor = true;
             // 
             // UserSettingsForm
             // 
             this.AcceptButton = this.button_Save;
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(684, 261);
+            this.ClientSize = new System.Drawing.Size(1026, 402);
             this.Controls.Add(this.tableLayoutPanel_Profile);
             this.Controls.Add(this.button_Save);
-            this.MaximumSize = new System.Drawing.Size(700, 300);
-            this.MinimumSize = new System.Drawing.Size(700, 300);
+            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.MaximumSize = new System.Drawing.Size(1042, 441);
+            this.MinimumSize = new System.Drawing.Size(1042, 441);
             this.Name = "UserSettingsForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Редактирование пользователя";

@@ -2,13 +2,9 @@
 
 namespace DryCleaningAPI
 {
-    public class TypesClient
+    public class TypesClient : BaseClient
     {
-        private readonly Session _session;
-        internal TypesClient(Session session)
-        {
-            _session = session;
-        }
+        internal TypesClient(Session session) : base(session) { }
 
         public Type[] GetTypes() => _session.Requestor.Get<Type[]>("/types");
 

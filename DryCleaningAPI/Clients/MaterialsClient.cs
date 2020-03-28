@@ -2,13 +2,9 @@
 
 namespace DryCleaningAPI
 {
-    public class MaterialsClient
+    public class MaterialsClient : BaseClient
     {
-        private readonly Session _session;
-        internal MaterialsClient(Session session)
-        {
-            _session = session;
-        }
+        internal MaterialsClient(Session session) : base(session) { }
 
         public Material[] GetMaterials() => _session.Requestor.Get<Material[]>("/materials");
 

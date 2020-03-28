@@ -3,14 +3,9 @@ using DryCleaningClient.API.Responses;
 
 namespace DryCleaningAPI
 {
-    public class ClientsClient
+    public class ClientsClient : BaseClient
     {
-        private readonly Session _session;
-
-        internal ClientsClient(Session session)
-        {
-            _session = session;
-        }
+        internal ClientsClient(Session session) : base(session) { }
 
         public Client[] GetClients() => _session.Requestor.Get<Client[]>("/clients");
 

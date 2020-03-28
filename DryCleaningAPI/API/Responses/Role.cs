@@ -9,10 +9,8 @@ namespace DryCleaningClient.API.Responses
 {
     public class Role
     {
-        [DisplayName("Должность")]
         public string Name { get; set; }
 
-        [DisplayName("Зарплата")]
         public int? Salary { get; set; }
 
         public override string ToString()

@@ -2,13 +2,9 @@
 
 namespace DryCleaningAPI
 {
-    public class ChemicalAgentClient
+    public class ChemicalAgentClient : BaseClient
     {
-        private readonly Session _session;
-        internal ChemicalAgentClient(Session session)
-        {
-            _session = session;
-        }
+        internal ChemicalAgentClient(Session session) : base(session) { }
 
         public ChemicalAgent[] GetChemicalAgents() => _session.Requestor.Get<ChemicalAgent[]>("/chemicalagents");
 

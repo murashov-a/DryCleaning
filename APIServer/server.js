@@ -4,7 +4,7 @@ const md5 = require('js-md5');
 const crypto = require('crypto')
 
 const app = express()
-const port = 80
+const port = 1994
 
 const db = sqliteJson('DryCleaning.db3');
 
@@ -15,7 +15,6 @@ app.listen(port,
         }
         console.log(`Server is listening on ${port}`)
     })
-
 
 app.post('/authorization', function (request, response) {
     var passportid = request.query.passportid
@@ -641,7 +640,12 @@ app.post('/cleanings', function (request, response) {
                     response.status(500).json({ message: err.message })
                 }
                 else{
-                    response.status(200).json({ message: "OK" })
+                    db.json(`SELECT seq FROM sqlite_sequence WHERE name = "Cleaning"`, function (err, jsonString) {
+                        var seq = JSON.parse(jsonString)[0].seq
+                        db.json(`SELECT * FROM Cleaning WHERE ID = '${seq}'`, function (err, jsonString) {
+                            response.json(JSON.parse(jsonString)[0])
+                        });
+                    });
                 }
         });
     }
@@ -650,6 +654,45 @@ app.post('/cleanings', function (request, response) {
 app.get('/cleanings/:id', function (request, response) {
     db.json(`SELECT * FROM Cleaning WHERE ID = '${request.params.id}'`, function (err, jsonString) {
         response.json(JSON.parse(jsonString)[0])
+    });
+});
+
+app.put('/cleanings/:id', function (request, response) {
+    var date = request.query.date == null || request.query.date == '' ? "null" : `"${request.query.date}"`
+    var result = request.query.result == null || request.query.result == '' ? "null" : `"${request.query.result}"`
+    var employee = request.query.employee == null || request.query.employee == '' ? "null" : `"${request.query.employee}"`
+    var chemicalagent = request.query.chemicalagent == null || request.query.chemicalagent == '' ? "null" : `"${request.query.chemicalagent}"`
+    var thing = request.query.thing == null || request.query.thing == '' ? "null" : `"${request.query.thing}"`
+
+    var sqlQuery = `UPDATE Cleaning
+                    SET
+                    Date = coalesce(${date}, Date),
+                    Result = coalesce(${result}, Result),
+                    Employee = coalesce(${employee}, Employee),
+                    ChemicalAgent = coalesce(${chemicalagent}, ChemicalAgent),
+                    Thing = coalesce(${thing}, Thing)
+                    WHERE ID = '${request.params.id}'`
+    db.json(sqlQuery,
+        function(err){
+            if (err){
+                response.status(500).json({ message: err.message })
+            }
+            else{
+                response.status(200).json({ message: "OK" })
+            }
+        });
+});
+
+app.delete('/cleanings/:id', function (request, response) {
+    db.json(`DELETE FROM Cleaning WHERE ID = '${request.params.id}'`, function (err, jsonString) {
+        if (err)
+        {
+            response.status(500).json({ message: err.message })
+        }
+        else
+        {
+            response.status(200).json({ message: "OK" })
+        }
     });
 });
 
@@ -676,7 +719,12 @@ app.post('/things', function (request, response) {
                     response.status(500).json({ message: err.message })
                 }
                 else{
-                    response.status(200).json({ message: "OK" })
+                    db.json(`SELECT seq FROM sqlite_sequence WHERE name = "Thing"`, function (err, jsonString) {
+                        var seq = JSON.parse(jsonString)[0].seq
+                        db.json(`SELECT * FROM Thing WHERE ID = '${seq}'`, function (err, jsonString) {
+                            response.json(JSON.parse(jsonString)[0])
+                        });
+                    });
                 }
         });
     }
@@ -685,6 +733,44 @@ app.post('/things', function (request, response) {
 app.get('/things/:id', function (request, response) {
     db.json(`SELECT * FROM Thing WHERE ID = '${request.params.id}'`, function (err, jsonString) {
         response.json(JSON.parse(jsonString)[0])
+    });
+});
+
+app.put('/things/:id', function (request, response) {
+    var name = request.query.name == null ? "null" : `"${request.query.name}"`
+    var material = request.query.material == null ? "null" : `"${request.query.material}"`
+    var type = request.query.type == null ? "null" : `"${request.query.type}"`
+    var cleaningorder = request.query.cleaningorder == null ? "null" : `"${request.query.cleaningorder}"`
+
+    db.json(`UPDATE Thing
+        SET
+        Name = coalesce(${name}, Name),
+        Material = coalesce(${material}, Material),
+        Type = coalesce(${type}, Type),
+        CleaningOrder = coalesce(${cleaningorder}, CleaningOrder)
+        WHERE ID = '${request.params.id}'`,
+    function(err){
+        if (err){
+            response.status(500).json({ message: err.message })
+        }
+        else{
+            db.json(`SELECT * FROM Thing WHERE ID = '${request.params.id}'`, function (err, jsonString) {
+                response.json(JSON.parse(jsonString)[0])
+            });
+        }
+    });
+});
+
+app.delete('/things/:id', function (request, response) {
+    db.json(`DELETE FROM Thing WHERE ID = '${request.params.id}'`, function (err, jsonString) {
+        if (err)
+        {
+            response.status(500).json({ message: err.message })
+        }
+        else
+        {
+            response.status(200).json({ message: "OK" })
+        }
     });
 });
 
@@ -765,7 +851,7 @@ app.get('/cleaningorders/:id', function (request, response) {
 });
 
 app.delete('/cleaningorders/:id', function (request, response) {
-    db.json(`DELETE FROM CleaningOrders WHERE ID = '${request.params.id}'`, function (err, jsonString) {
+    db.json(`DELETE FROM CleaningOrder WHERE ID = '${request.params.id}'`, function (err, jsonString) {
         if (err)
         {
             response.status(500).json({ message: err.message })

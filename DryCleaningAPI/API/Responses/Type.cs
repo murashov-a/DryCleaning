@@ -9,13 +9,10 @@ namespace DryCleaningClient.API.Responses
 {
     public class Type
     {
-        [DisplayName("Тип")]
         public string Name { get; set; }
 
-        [DisplayName("Компенсация")]
         public int Compensation { get; set; }
 
-        [DisplayName("Цена чистки")]
         public int CleaningPrice { get; set; }
 
         public override int GetHashCode()
@@ -43,5 +40,10 @@ namespace DryCleaningClient.API.Responses
         {
             Name = ""
         };
+
+        public override string ToString()
+        {
+            return Name;
+        }
     }
 }

@@ -6,21 +6,17 @@ using DryCleaningAPI.Extensions;
 
 namespace DryCleaningAPI
 {
-    public class CleaningOrdersClient
+    public class CleaningOrdersClient : BaseClient
     {
-        private readonly Session _session;
-        internal CleaningOrdersClient(Session session)
-        {
-            _session = session;
-        }
+        internal CleaningOrdersClient(Session session) : base(session) { }
 
         public CleaningOrder[] GetCleaningOrders() => _session.Requestor.Get<CleaningOrder[]>("/cleaningorders");
 
         public CleaningOrder Add(DateTime dateofreceipt, DateTime targetterm, int employee, int client) =>
-            _session.Requestor.Post<CleaningOrder>($"/cleaningorders?dateofreceipt={dateofreceipt.ToString(CustomDateTimeConverter.SQLITE_DATE_FORMAT)}&targetterm={targetterm.ToString(CustomDateTimeConverter.SQLITE_DATE_FORMAT)}&employee={employee}&client={client}");
+            _session.Requestor.Post<CleaningOrder>($"/cleaningorders?dateofreceipt={dateofreceipt.ToString(SqliteDateTimeConverter.SQLITE_DATE_FORMAT)}&targetterm={targetterm.ToString(SqliteDateTimeConverter.SQLITE_DATE_FORMAT)}&employee={employee}&client={client}");
 
         public CleaningOrder Edit(int id, DateTime dateofreceipt, DateTime? dateofreturn, DateTime targetterm, DateTime? actualterm, int employee, int client) =>
-            _session.Requestor.Put<CleaningOrder>($"/cleaningorders/{id}?dateofreceipt={dateofreceipt.ToString(CustomDateTimeConverter.SQLITE_DATE_FORMAT)}&dateofreturn={dateofreturn?.ToString(CustomDateTimeConverter.SQLITE_DATE_FORMAT)}&targetterm={targetterm.ToString(CustomDateTimeConverter.SQLITE_DATE_FORMAT)}&actualterm={actualterm?.ToString(CustomDateTimeConverter.SQLITE_DATE_FORMAT)}&employee={employee}&client={client}");
+            _session.Requestor.Put<CleaningOrder>($"/cleaningorders/{id}?dateofreceipt={dateofreceipt.ToString(SqliteDateTimeConverter.SQLITE_DATE_FORMAT)}&dateofreturn={dateofreturn?.ToString(SqliteDateTimeConverter.SQLITE_DATE_FORMAT)}&targetterm={targetterm.ToString(SqliteDateTimeConverter.SQLITE_DATE_FORMAT)}&actualterm={actualterm?.ToString(SqliteDateTimeConverter.SQLITE_DATE_FORMAT)}&employee={employee}&client={client}");
 
         public CleaningOrder Edit(int id, CleaningOrder cleaningOrder) =>
             Edit(id, cleaningOrder.DateOfReceipt, cleaningOrder.DateOfReturn, cleaningOrder.TargetTerm,

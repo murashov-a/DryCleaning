@@ -49,11 +49,12 @@
             this.objectListView_Materials.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.objectListView_Materials.FullRowSelect = true;
             this.objectListView_Materials.HideSelection = false;
-            this.objectListView_Materials.Location = new System.Drawing.Point(12, 12);
+            this.objectListView_Materials.Location = new System.Drawing.Point(18, 18);
+            this.objectListView_Materials.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.objectListView_Materials.MultiSelect = false;
             this.objectListView_Materials.Name = "objectListView_Materials";
             this.objectListView_Materials.ShowGroups = false;
-            this.objectListView_Materials.Size = new System.Drawing.Size(776, 390);
+            this.objectListView_Materials.Size = new System.Drawing.Size(1162, 598);
             this.objectListView_Materials.TabIndex = 8;
             this.objectListView_Materials.UseCompatibleStateImageBehavior = false;
             this.objectListView_Materials.View = System.Windows.Forms.View.Details;
@@ -62,15 +63,16 @@
             // 
             this.olvColumn_Name.AspectName = "Name";
             this.olvColumn_Name.Text = "Название";
-            this.olvColumn_Name.Width = 771;
+            this.olvColumn_Name.Width = 1157;
             // 
             // button_MaterialAdd
             // 
             this.button_MaterialAdd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.button_MaterialAdd.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button_MaterialAdd.Location = new System.Drawing.Point(12, 408);
+            this.button_MaterialAdd.Location = new System.Drawing.Point(18, 628);
+            this.button_MaterialAdd.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.button_MaterialAdd.Name = "button_MaterialAdd";
-            this.button_MaterialAdd.Size = new System.Drawing.Size(150, 30);
+            this.button_MaterialAdd.Size = new System.Drawing.Size(225, 46);
             this.button_MaterialAdd.TabIndex = 9;
             this.button_MaterialAdd.Text = "Добавить";
             this.button_MaterialAdd.UseVisualStyleBackColor = true;
@@ -80,9 +82,10 @@
             // 
             this.button_MaterialDelete.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.button_MaterialDelete.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button_MaterialDelete.Location = new System.Drawing.Point(638, 408);
+            this.button_MaterialDelete.Location = new System.Drawing.Point(957, 628);
+            this.button_MaterialDelete.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.button_MaterialDelete.Name = "button_MaterialDelete";
-            this.button_MaterialDelete.Size = new System.Drawing.Size(150, 30);
+            this.button_MaterialDelete.Size = new System.Drawing.Size(225, 46);
             this.button_MaterialDelete.TabIndex = 10;
             this.button_MaterialDelete.Text = "Удалить";
             this.button_MaterialDelete.UseVisualStyleBackColor = true;
@@ -92,9 +95,10 @@
             // 
             this.button_MaterialEdit.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.button_MaterialEdit.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button_MaterialEdit.Location = new System.Drawing.Point(326, 408);
+            this.button_MaterialEdit.Location = new System.Drawing.Point(489, 628);
+            this.button_MaterialEdit.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.button_MaterialEdit.Name = "button_MaterialEdit";
-            this.button_MaterialEdit.Size = new System.Drawing.Size(150, 30);
+            this.button_MaterialEdit.Size = new System.Drawing.Size(225, 46);
             this.button_MaterialEdit.TabIndex = 11;
             this.button_MaterialEdit.Text = "Редактировать";
             this.button_MaterialEdit.UseVisualStyleBackColor = true;
@@ -102,13 +106,15 @@
             // 
             // MaterialsForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(1200, 692);
             this.Controls.Add(this.objectListView_Materials);
             this.Controls.Add(this.button_MaterialAdd);
             this.Controls.Add(this.button_MaterialDelete);
             this.Controls.Add(this.button_MaterialEdit);
+            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "MaterialsForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Материалы";

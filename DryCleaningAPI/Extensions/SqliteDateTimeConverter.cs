@@ -2,10 +2,10 @@
 
 namespace DryCleaningAPI.Extensions
 {
-    public class CustomDateTimeConverter : IsoDateTimeConverter
+    public class SqliteDateTimeConverter : IsoDateTimeConverter
     {
         public const string SQLITE_DATE_FORMAT = "dd-MM-yyyy";
-        public CustomDateTimeConverter()
+        public SqliteDateTimeConverter()
         {
             base.DateTimeFormat = SQLITE_DATE_FORMAT;
         }

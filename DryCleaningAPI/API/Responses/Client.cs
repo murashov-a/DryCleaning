@@ -5,13 +5,10 @@ namespace DryCleaningClient.API.Responses
 {
     public class Client
     {
-        [DisplayName("Номер")]
         public int ID { get; set; }
 
-        [DisplayName("ФИО")]
         public string Name { get; set; }
 
-        [DisplayName("Номер телефона")]
         public string Telephone { get; set; }
 
         public override int GetHashCode()
@@ -37,5 +34,10 @@ namespace DryCleaningClient.API.Responses
 
         [Obsolete("ID выдаёт БД, поэтому невозможно создать экземпляр по умолчанию", true)]
         public static Client Default;
+
+        public override string ToString()
+        {
+            return Name;
+        }
     }
 }

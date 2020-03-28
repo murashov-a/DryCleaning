@@ -5,16 +5,12 @@ namespace DryCleaningClient.API.Responses
 {
     public class User
     {
-        [OLVColumn("Номер паспорта")]
         public int PassportID { get; set; }
 
-        [OLVColumn("ФИО")]
         public string Name { get; set; }
 
-        [OLVColumn("Должность")]
         public string Role { get; set; }
 
-        [OLVColumn("Права администратора")]
         public bool IsAdmin { get; set; }
 
         /// <summary>
@@ -52,5 +48,10 @@ namespace DryCleaningClient.API.Responses
             Password = "",
             PassportID = 0
         };
+
+        public override string ToString()
+        {
+            return Name;
+        }
     }
 }

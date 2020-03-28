@@ -1,10 +1,10 @@
 # API  
 ## Требования
 Для запуска сервера необходимо установить:  
-* nodejs
-* пакеты: express, sqlite-json, js-md5, crypto
+* [NodeJS](https://nodejs.org/ru/)
+* пакеты: express, sqlite-json, js-md5, crypto (из директории **APIServer** команда `npm install express sqlite-json js-md5 crypto`)
 
-## Запуск API сервера из папки **APIServer**:  
+## Запуск API сервера из директории **APIServer**:  
 `node server.js`
 ## Использование
 API используется посредством **GET**, **POST**, **PUT** или **DELETE** запросов по адресу сервера  
@@ -37,6 +37,23 @@ var dryCleaningClient = new DryCleaningAPI.DryCleaningClient("8cd7fde10d6dbad74c
 в `dryCleaningClient` будут созданы следующие экземпляры классов:  
 
 ## Использование  
+```csharp
+//auth
+var dryCleaningClient = new DryCleaningAPI.DryCleaningClient("http://localhost", 123456, "pass123word");
+//get all clients
+var allClients = dryCleaningClient.Clients.GetClients();
+//add client
+var client = dryCleaningClient.Clients.Add("Петров Пётр Петрович", "89997895432");
+//delete client
+dryCleaningClient.Clients.Delete(client.ID);
+
+//add material
+var newMaterial = new Material() { Name = "лён"};
+dryCleaningClient.Materials.Add(newMaterial);
+
+//get all chemical agents
+var allChemicalAgents = dryCleaningClient.ChemicalAgent.GetChemicalAgents();
+```
 | **Класс** | **Описание** |
 | ------ | ------ |
 | `ChemicalAgentClient`  | Химические средства |

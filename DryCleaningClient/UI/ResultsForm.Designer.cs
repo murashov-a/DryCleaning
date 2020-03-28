@@ -49,11 +49,12 @@
             this.objectListView_Results.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.objectListView_Results.FullRowSelect = true;
             this.objectListView_Results.HideSelection = false;
-            this.objectListView_Results.Location = new System.Drawing.Point(12, 12);
+            this.objectListView_Results.Location = new System.Drawing.Point(18, 18);
+            this.objectListView_Results.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.objectListView_Results.MultiSelect = false;
             this.objectListView_Results.Name = "objectListView_Results";
             this.objectListView_Results.ShowGroups = false;
-            this.objectListView_Results.Size = new System.Drawing.Size(776, 390);
+            this.objectListView_Results.Size = new System.Drawing.Size(1162, 598);
             this.objectListView_Results.TabIndex = 12;
             this.objectListView_Results.UseCompatibleStateImageBehavior = false;
             this.objectListView_Results.View = System.Windows.Forms.View.Details;
@@ -62,15 +63,16 @@
             // 
             this.olvColumn_Name.AspectName = "Name";
             this.olvColumn_Name.Text = "Название";
-            this.olvColumn_Name.Width = 771;
+            this.olvColumn_Name.Width = 1156;
             // 
             // button_ResultAdd
             // 
             this.button_ResultAdd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.button_ResultAdd.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button_ResultAdd.Location = new System.Drawing.Point(12, 408);
+            this.button_ResultAdd.Location = new System.Drawing.Point(18, 628);
+            this.button_ResultAdd.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.button_ResultAdd.Name = "button_ResultAdd";
-            this.button_ResultAdd.Size = new System.Drawing.Size(150, 30);
+            this.button_ResultAdd.Size = new System.Drawing.Size(225, 46);
             this.button_ResultAdd.TabIndex = 13;
             this.button_ResultAdd.Text = "Добавить";
             this.button_ResultAdd.UseVisualStyleBackColor = true;
@@ -80,9 +82,10 @@
             // 
             this.button_ResultDelete.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.button_ResultDelete.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button_ResultDelete.Location = new System.Drawing.Point(638, 408);
+            this.button_ResultDelete.Location = new System.Drawing.Point(957, 628);
+            this.button_ResultDelete.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.button_ResultDelete.Name = "button_ResultDelete";
-            this.button_ResultDelete.Size = new System.Drawing.Size(150, 30);
+            this.button_ResultDelete.Size = new System.Drawing.Size(225, 46);
             this.button_ResultDelete.TabIndex = 14;
             this.button_ResultDelete.Text = "Удалить";
             this.button_ResultDelete.UseVisualStyleBackColor = true;
@@ -92,9 +95,10 @@
             // 
             this.button_ResultEdit.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.button_ResultEdit.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.button_ResultEdit.Location = new System.Drawing.Point(326, 408);
+            this.button_ResultEdit.Location = new System.Drawing.Point(489, 628);
+            this.button_ResultEdit.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.button_ResultEdit.Name = "button_ResultEdit";
-            this.button_ResultEdit.Size = new System.Drawing.Size(150, 30);
+            this.button_ResultEdit.Size = new System.Drawing.Size(225, 46);
             this.button_ResultEdit.TabIndex = 15;
             this.button_ResultEdit.Text = "Редактировать";
             this.button_ResultEdit.UseVisualStyleBackColor = true;
@@ -102,13 +106,15 @@
             // 
             // ResultsForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(1200, 692);
             this.Controls.Add(this.objectListView_Results);
             this.Controls.Add(this.button_ResultAdd);
             this.Controls.Add(this.button_ResultDelete);
             this.Controls.Add(this.button_ResultEdit);
+            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "ResultsForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Результаты чистки";

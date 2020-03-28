@@ -9,7 +9,6 @@ namespace DryCleaningClient.API.Responses
 {
     public class ChemicalAgent
     {
-        [DisplayName("Химическое средство")]
         public string Name { get; set; }
 
         public override int GetHashCode()

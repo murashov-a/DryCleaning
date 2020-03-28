@@ -9,7 +9,6 @@ namespace DryCleaningClient.API.Responses
 {
     public class Result
     {
-        [DisplayName("Название")]
         public string Name { get; set; }
 
         public override int GetHashCode()

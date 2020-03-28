@@ -30,7 +30,7 @@ namespace DryCleaningClient
                 DryCleaningAPI.DryCleaningClient client = null;
                 try
                 {
-                    client = new DryCleaningAPI.DryCleaningClient(Properties.Settings.Default.API, passportid, password);
+                    client = new DryCleaningAPI.DryCleaningClient(textBox_Server.Text, passportid, password);
                 }
                 catch (DryCleaningException exception)
                 {
