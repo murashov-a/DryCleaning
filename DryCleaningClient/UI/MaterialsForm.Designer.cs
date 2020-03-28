@@ -62,7 +62,7 @@
             // 
             this.olvColumn_Name.AspectName = "Name";
             this.olvColumn_Name.Text = "Название";
-            this.olvColumn_Name.Width = 504;
+            this.olvColumn_Name.Width = 771;
             // 
             // button_MaterialAdd
             // 

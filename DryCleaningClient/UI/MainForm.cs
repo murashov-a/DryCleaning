@@ -1,6 +1,4 @@
-﻿using System.Linq;
-using System.Windows.Forms;
-using DryCleaningAPI;
+﻿using System.Windows.Forms;
 
 namespace DryCleaningClient.UI
 {

@@ -49,6 +49,7 @@
   <ItemGroup>
     <Compile Include="API\Requests\Token.cs" />
     <Compile Include="API\Responses\ChemicalAgent.cs" />
+    <Compile Include="API\Responses\CleaningOrder.cs" />
     <Compile Include="API\Responses\Client.cs" />
     <Compile Include="API\Responses\Material.cs" />
     <Compile Include="API\Responses\Result.cs" />
@@ -56,9 +57,11 @@
     <Compile Include="API\Responses\Type.cs" />
     <Compile Include="API\Responses\User.cs" />
     <Compile Include="ChemicalAgentClient.cs" />
+    <Compile Include="CleaningOrdersClient.cs" />
     <Compile Include="ClientsClient.cs" />
     <Compile Include="DryCleaningClient.cs" />
     <Compile Include="Exceptions\DryCleaningException.cs" />
+    <Compile Include="Extensions\CustomDateTimeConverter.cs" />
     <Compile Include="Http\Requestor.cs" />
     <Compile Include="MaterialsClient.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

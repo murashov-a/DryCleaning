@@ -718,7 +718,12 @@ app.post('/cleaningorders', function (request, response) {
                     response.status(500).json({ message: err.message })
                 }
                 else{
-                    response.status(200).json({ message: "OK" })
+                    db.json(`SELECT seq FROM sqlite_sequence WHERE name = "CleaningOrder"`, function (err, jsonString) {
+                        var seq = JSON.parse(jsonString)[0].seq
+                        db.json(`SELECT * FROM CleaningOrder WHERE ID = '${seq}'`, function (err, jsonString) {
+                            response.json(JSON.parse(jsonString)[0])
+                        });
+                    });
                 }
         });
     }
@@ -756,5 +761,18 @@ app.put('/cleaningorders/:id', function (request, response) {
 app.get('/cleaningorders/:id', function (request, response) {
     db.json(`SELECT * FROM CleaningOrder WHERE ID = '${request.params.id}'`, function (err, jsonString) {
         response.json(JSON.parse(jsonString)[0])
+    });
+});
+
+app.delete('/cleaningorders/:id', function (request, response) {
+    db.json(`DELETE FROM CleaningOrders WHERE ID = '${request.params.id}'`, function (err, jsonString) {
+        if (err)
+        {
+            response.status(500).json({ message: err.message })
+        }
+        else
+        {
+            response.status(200).json({ message: "OK" })
+        }
     });
 });
