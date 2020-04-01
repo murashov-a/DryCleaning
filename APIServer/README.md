@@ -72,6 +72,24 @@ _Только для администраторов_
 | newPassword | string | да | Пароль |
 | isAdmin | boolean | нет | Является ли администратором системы (по умолчанию false) |
 
+### Удалить сотрудника  
+
+> DELETE /users/:passportid
+
+_Только для администраторов_
+
+### Редактировать сотрудника
+  
+> PUT /users/:passportid
+
+| Атрибут | Тип | Необходимый | Описание |
+| ------ | ------ | ------ | ------ |
+| newPassportID | string | нет | Новый номер паспорта |
+| newName | string | нет | Новое ФИО |
+| newRole | string | нет | Должность |
+| newIsAdmin | string | нет | Является ли администратором системы |
+
+
 ### Все сотрудники  
 
 > GET /users
@@ -124,6 +142,10 @@ _Только для администраторов_
 }
 ```
 
+### Материал
+
+> GET /materials/:name
+
 ### Добавить материал
 
 > POST /materials
@@ -131,6 +153,18 @@ _Только для администраторов_
 | Атрибут | Тип | Необходимый | Описание |
 | ------ | ------ | ------ | ------ |
 | name | string | да | Название материала |
+
+### Редактировать материал
+
+> PUT /materials/:name
+
+| Атрибут | Тип | Необходимый | Описание |
+| ------ | ------ | ------ | ------ |
+| name | string | да | Новое название материала |
+
+### Удалить материал
+
+> DELETE /materials/:name
 
 ### Химические средства  
 
@@ -158,6 +192,18 @@ _Только для администраторов_
 | Атрибут | Тип | Необходимый | Описание |
 | ------ | ------ | ------ | ------ |
 | name | string | да | Название химического средства |
+
+### Редактировать химическое средство  
+
+> PUT /chemicalagents/:name
+
+| Атрибут | Тип | Необходимый | Описание |
+| ------ | ------ | ------ | ------ |
+| name | string | да | Название химического средства |
+
+### Удалить химическое средство  
+
+> DELETE /chemicalagents/:name
 
 ### Клиенты
 
@@ -201,6 +247,19 @@ _Только для администраторов_
 }
 ```
 
+### Редактировать клиента  
+
+> PUT /clients/:id
+
+| Атрибут | Тип | Необходимый | Описание |
+| ------ | ------ | ------ | ------ |
+| name | string | нет | ФИО клиента |
+| telephone | string | нет | Телефон клиента |
+
+### Удалить клиента  
+
+> DELETE /clients/:id
+
 ## Возможные результаты чистки  
 
 > GET /results
@@ -219,6 +278,14 @@ _Только для администраторов_
     }
 }
 ```
+
+### Добавить результат  
+
+> POST /results
+
+| Атрибут | Тип | Необходимый | Описание |
+| ------ | ------ | ------ | ------ |
+| name | string | нет | Название результата |
 
 ### Должности
 
@@ -407,3 +474,58 @@ _Только для администраторов_
     "Price": 0
 }
 ```
+
+
+# Полный список запросов
+`get /user`   
+`put /user`   
+`post /users`   
+`delete /users/:passportid`   
+`put /users/:passportid`   
+`get /users`   
+`get /users/:passportid`   
+`get /materials`   
+`get /materials/:name`   
+`post /materials`   
+`put /materials/:name`   
+`delete /materials/:name`   
+`get /chemicalagents`   
+`post /chemicalagents`   
+`put /chemicalagents/:name`   
+`delete /chemicalagents/:name`   
+`get /clients`   
+`post /clients`   
+`get /clients/:id`   
+`put /clients/:id`   
+`delete /clients/:id`   
+`get /results`   
+`post /results`   
+`put /results/:name`   
+`delete /results/:name`   
+`get /roles`   
+`post /roles`   
+`put /roles/:name`   
+`delete /roles/:name`   
+`get /types`   
+`put /types/:name`   
+`delete /types/:name`   
+`post /types`   
+`get /cleaningsthings`   
+`post /cleaningsthings`   
+`put /cleaningsthings/:cleaningid/:thingid`   
+`delete /cleaningsthings/:cleaningid/:thingid`   
+`get /cleanings`   
+`post /cleanings`   
+`get /cleanings/:id`   
+`put /cleanings/:id`   
+`delete /cleanings/:id`   
+`get /things`   
+`post /things`   
+`get /things/:id`   
+`put /things/:id`   
+`delete /things/:id`   
+`get /cleaningorders`   
+`post /cleaningorders`   
+`put /cleaningorders/:id`   
+`get /cleaningorders/:id`   
+`delete /cleaningorders/:id`
