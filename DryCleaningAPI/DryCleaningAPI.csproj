@@ -51,6 +51,7 @@
     <Compile Include="API\Responses\ChemicalAgent.cs" />
     <Compile Include="API\Responses\Cleaning.cs" />
     <Compile Include="API\Responses\CleaningOrder.cs" />
+    <Compile Include="API\Responses\CleaningThing.cs" />
     <Compile Include="API\Responses\Client.cs" />
     <Compile Include="API\Responses\Material.cs" />
     <Compile Include="API\Responses\Result.cs" />
@@ -62,6 +63,7 @@
     <Compile Include="Clients\ChemicalAgentClient.cs" />
     <Compile Include="Clients\CleaningOrdersClient.cs" />
     <Compile Include="Clients\CleaningsClient.cs" />
+    <Compile Include="Clients\CleaningsThingsClient.cs" />
     <Compile Include="Clients\ClientsClient.cs" />
     <Compile Include="DryCleaningClient.cs" />
     <Compile Include="Exceptions\DryCleaningException.cs" />

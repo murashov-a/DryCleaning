@@ -36,5 +36,10 @@ namespace DryCleaningClient.API.Responses
         {
             Name = ""
         };
+
+        public override string ToString()
+        {
+            return Name;
+        }
     }
 }

@@ -13,6 +13,8 @@
         public ChemicalAgentClient ChemicalAgent { get; private set; }
         public CleaningOrdersClient CleaningOrders { get; private set; }
         public ThingsClient Things { get; private set; }
+        public CleaningsThingsClient CleaningsThings { get; private set; }
+        public CleaningsClient Cleanings { get; private set; }
 
 
         public DryCleaningClient(string ApiUrl, int passport, string password)
@@ -37,6 +39,8 @@
             ChemicalAgent = new ChemicalAgentClient(Session);
             CleaningOrders = new CleaningOrdersClient(Session);
             Things = new ThingsClient(Session);
+            CleaningsThings = new CleaningsThingsClient(Session);
+            Cleanings = new CleaningsClient(Session);
         }
     }
 }

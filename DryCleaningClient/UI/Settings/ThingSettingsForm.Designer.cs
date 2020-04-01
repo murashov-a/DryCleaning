@@ -30,11 +30,11 @@
         {
             this.button_Save = new System.Windows.Forms.Button();
             this.tableLayoutPanel_Thing = new System.Windows.Forms.TableLayoutPanel();
+            this.label_CleaningOrder = new System.Windows.Forms.Label();
             this.label_Name = new System.Windows.Forms.Label();
             this.label_Material = new System.Windows.Forms.Label();
             this.textBox_Name = new System.Windows.Forms.TextBox();
             this.label_Type = new System.Windows.Forms.Label();
-            this.label_CleaningOrder = new System.Windows.Forms.Label();
             this.comboBox_Material = new System.Windows.Forms.ComboBox();
             this.comboBox_Type = new System.Windows.Forms.ComboBox();
             this.comboBox_CleaningOrder = new System.Windows.Forms.ComboBox();
@@ -56,8 +56,7 @@
             // 
             // tableLayoutPanel_Thing
             // 
-            this.tableLayoutPanel_Thing.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.tableLayoutPanel_Thing.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tableLayoutPanel_Thing.ColumnCount = 2;
             this.tableLayoutPanel_Thing.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
@@ -81,6 +80,17 @@
             this.tableLayoutPanel_Thing.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 31F));
             this.tableLayoutPanel_Thing.Size = new System.Drawing.Size(553, 145);
             this.tableLayoutPanel_Thing.TabIndex = 12;
+            // 
+            // label_CleaningOrder
+            // 
+            this.label_CleaningOrder.AutoSize = true;
+            this.label_CleaningOrder.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label_CleaningOrder.Location = new System.Drawing.Point(4, 108);
+            this.label_CleaningOrder.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label_CleaningOrder.Name = "label_CleaningOrder";
+            this.label_CleaningOrder.Size = new System.Drawing.Size(67, 24);
+            this.label_CleaningOrder.TabIndex = 10;
+            this.label_CleaningOrder.Text = "Заказ:";
             // 
             // label_Name
             // 
@@ -126,17 +136,6 @@
             this.label_Type.Size = new System.Drawing.Size(49, 24);
             this.label_Type.TabIndex = 8;
             this.label_Type.Text = "Тип:";
-            // 
-            // label_CleaningOrder
-            // 
-            this.label_CleaningOrder.AutoSize = true;
-            this.label_CleaningOrder.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label_CleaningOrder.Location = new System.Drawing.Point(4, 108);
-            this.label_CleaningOrder.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label_CleaningOrder.Name = "label_CleaningOrder";
-            this.label_CleaningOrder.Size = new System.Drawing.Size(67, 24);
-            this.label_CleaningOrder.TabIndex = 10;
-            this.label_CleaningOrder.Text = "Заказ:";
             // 
             // comboBox_Material
             // 

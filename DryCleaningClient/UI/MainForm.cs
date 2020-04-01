@@ -1,10 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows.Forms;
 using DryCleaningAPI.API.Responses;
 using DryCleaningAPI.Extensions;
 using DryCleaningClient.API.Responses;
+using DryCleaningClient.UI.Settings;
 
 namespace DryCleaningClient.UI
 {
@@ -16,20 +18,33 @@ namespace DryCleaningClient.UI
         /// Modified Results
         /// </summary>
         public BindingList<CleaningOrder> CleaningOrders { get; private set; } = new BindingList<CleaningOrder>();
+        public BindingList<Cleaning> Cleanings { get; private set; } = new BindingList<Cleaning>();
+
 
         public BindingList<Thing> Things = new BindingList<Thing>();
+        public BindingList<Thing> CleaningThings = new BindingList<Thing>();
 
         public MainForm(DryCleaningAPI.DryCleaningClient client)
         {
             _client = client;
             CleaningOrders = new BindingList<CleaningOrder>(_client.CleaningOrders.GetCleaningOrders());
+            Cleanings = new BindingList<Cleaning>(_client.Cleanings.GetCleanings());
             InitializeComponent();
 
-            olvColumn_Employee.AspectGetter = delegate (object objCleaningOrder)
+            olvColumn_OrderEmployee.AspectGetter = delegate (object objCleaningOrder)
             {
                 if (objCleaningOrder is CleaningOrder cleaningOrder)
                 {
                     var selectedUser = _client.Users.GetUser(cleaningOrder.Employee);
+                    return selectedUser.Name;
+                }
+                return null;
+            };
+            olvColumn_CleaningEmployee.AspectGetter = delegate(object objCleaning)
+            {
+                if (objCleaning is Cleaning cleaning)
+                {
+                    var selectedUser = _client.Users.GetUser(cleaning.Employee);
                     return selectedUser.Name;
                 }
                 return null;
@@ -75,15 +90,28 @@ namespace DryCleaningClient.UI
                 }
                 return null;
             };
+            olvColumn_Date.AspectGetter = delegate (object objCleaning)
+            {
+                if (objCleaning is Cleaning cleaning)
+                {
+                    return cleaning.Date.ToString(SqliteDateTimeConverter.SQLITE_DATE_FORMAT);
+                }
+                return null;
+            };
 
             UpdateCleaningOrdersList();
-
+            UpdateCleaningsList();
         }
 
         private void UpdateCleaningOrdersList()
         {
             CleaningOrders = new BindingList<CleaningOrder>(_client.CleaningOrders.GetCleaningOrders());
             objectListView_Orders.SetObjects(CleaningOrders);
+        }
+        private void UpdateCleaningsList()
+        {
+            Cleanings = new BindingList<Cleaning>(_client.Cleanings.GetCleanings());
+            objectListView_Cleanings.SetObjects(Cleanings);
         }
         private void UpdateThingsList(CleaningOrder cleaningOrder)
         {
@@ -257,6 +285,120 @@ namespace DryCleaningClient.UI
             {
                 _client.Things.Delete(thing);
             }
+        }
+
+        private void objectListView_Cleanings_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (objectListView_Cleanings.SelectedObject is Cleaning cleaning)
+            {
+                UpdateCleaningThingsList(cleaning);
+            }
+
+            CanCleaningEditCheckAndBlockButton();
+        }
+
+        void CanCleaningEditCheckAndBlockButton()
+        {
+            button_ThingCleaningAdd.Enabled = button_EditCleaning.Enabled = button_DeleteCleaning.Enabled = objectListView_Cleanings.SelectedObject is Cleaning;
+        }
+
+        private void UpdateCleaningThingsList(Cleaning cleaning)
+        {
+            UpdateCleaningThingsList(cleaning.ID);
+        }
+
+        private int lastSelectCleaningID;
+        private void UpdateCleaningThingsList(int cleaningID)
+        {
+            lastSelectCleaningID = cleaningID;
+
+            CleaningThings.Clear();
+            var cleanings = _client.CleaningsThings.GetCleanings();
+            foreach (var cleaningThing in cleanings.Where(x => x.CleaningID == cleaningID))
+            {
+                CleaningThings.Add(_client.Things.Get(cleaningThing.ThingID));
+            }
+            objectListView_CleaningThings.SetObjects(CleaningThings);
+        }
+
+        private void button_DeleteCleaning_Click(object sender, EventArgs e)
+        {
+            if (objectListView_Cleanings.SelectedObject is Cleaning cleaning)
+            {
+                if (MessageBox.Show($"Удалить чистку?", "Подтверждение", MessageBoxButtons.YesNo,
+                        MessageBoxIcon.Question) == DialogResult.Yes)
+                {
+                    _client.Cleanings.Delete(cleaning);
+                    UpdateCleaningsList();
+                }
+            }
+        }
+
+        private void button_EditCleaning_Click(object sender, EventArgs e)
+        {
+            if (objectListView_Cleanings.SelectedObject is Cleaning cleaning)
+            {
+                var cleaningSettingsForm = new CleaningSettingsForm(cleaning, _client);
+                if (cleaningSettingsForm.ShowDialog() == DialogResult.OK)
+                {
+                    _client.Cleanings.Edit(cleaning.ID, cleaningSettingsForm.Cleaning);
+                    UpdateCleaningsList();
+                }
+            }
+        }
+
+        private void button_AddCleaning_Click(object sender, EventArgs e)
+        {
+            var cleaning = _client.Cleanings.Add(DateTime.Now, _client.Results.GetResults().First().Name,
+                _client.Users.GetCurrentUser().PassportID, _client.ChemicalAgent.GetChemicalAgents().First().Name);
+
+            var cleaningSettingsForm = new CleaningSettingsForm(cleaning, _client);
+            if (cleaningSettingsForm.ShowDialog() == DialogResult.OK)
+            {
+                _client.Cleanings.Edit(cleaning.ID, cleaningSettingsForm.Cleaning);
+                UpdateCleaningsList();
+            }
+            else
+            {
+                _client.Cleanings.Delete(cleaning);
+            }
+        }
+
+        private void button_ThingCleaningAdd_Click(object sender, EventArgs e)
+        {
+            var cleaningThingsSettings = new CleaningThingsSettings(_client, objectListView_CleaningThings.Objects?.Cast<Thing>());
+            if (cleaningThingsSettings.ShowDialog() == DialogResult.OK)
+            {
+                List<CleaningThing> cleaningThings = new List<CleaningThing>();
+                foreach (var checkedThing in cleaningThingsSettings.CheckedThings)
+                {
+                    cleaningThings.Add(new CleaningThing() { CleaningID = lastSelectCleaningID, ThingID = checkedThing.ID});
+                }
+                _client.CleaningsThings.Add(cleaningThings);
+                UpdateCleaningThingsList(lastSelectCleaningID);
+            }
+        }
+
+        private void button_ThingCleaningDelete_Click(object sender, EventArgs e)
+        {
+            if (objectListView_CleaningThings.SelectedObject is Thing thing)
+            {
+                if (MessageBox.Show($"Удалить чистку вещь '{thing.Name}' из чистки №{lastSelectCleaningID}?", "Подтверждение", MessageBoxButtons.YesNo,
+                        MessageBoxIcon.Question) == DialogResult.Yes)
+                {
+                    _client.CleaningsThings.Delete(lastSelectCleaningID, thing.ID);
+                    UpdateCleaningThingsList(lastSelectCleaningID);
+                }
+            }
+        }
+
+        private void objectListView_CleaningThings_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            CanCleaningThingsEditCheckAndBlockButton();
+        }
+        void CanCleaningThingsEditCheckAndBlockButton()
+        {
+            button_ThingCleaningDelete.Enabled = objectListView_CleaningThings.SelectedObject is Thing;
         }
     }
 }

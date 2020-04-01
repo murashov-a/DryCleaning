@@ -639,6 +639,64 @@ app.post('/types', function (request, response) {
         }
 });
 
+app.get('/cleaningsthings', function (request, response) {
+    db.json(`SELECT * FROM CleaningThing`, function (err, jsonString) {
+        response.json(JSON.parse(jsonString))
+    });
+});
+
+app.post('/cleaningsthings', function (request, response) {
+    if(request.query.cleaningid == null ||
+        request.query.thingid == null){
+            response.status(400).json({ message: "400 Bad Request" })
+    }
+    else{
+        db.json(`INSERT INTO CleaningThing VALUES(
+            "${request.query.cleaningid}",
+            "${request.query.thingid}");`, function (err, jsonString) {
+                if (err){
+                    response.status(500).json({ message: err.message })
+                }
+                else{
+                    response.status(200).json({ message: "OK" })
+                }
+        });
+    }
+});
+
+app.put('/cleaningsthings/:cleaningid/:thingid', function (request, response) {
+    var newcleaningid = request.query.newcleaningid == null || request.query.newcleaningid == '' ? "null" : `"${request.query.newcleaningid}"`
+    var newthingid = request.query.newthingid == null || request.query.newthingid == '' ? "null" : `"${request.query.newthingid}"`
+    var sqlQuery = `UPDATE CleaningThing
+                    SET
+                    CleaningID = coalesce(${newcleaningid}, CleaningID),
+                    ThingID = coalesce(${newthingid}, ThingID)
+                    WHERE CleaningID = '${request.params.cleaningid}'
+                    AND ThingID = '${request.params.thingid}'`
+    db.json(sqlQuery,
+        function(err){
+            if (err){
+                response.status(500).json({ message: err.message })
+            }
+            else{
+                response.status(200).json({ message: "OK" })
+            }
+        });
+});
+
+app.delete('/cleaningsthings/:cleaningid/:thingid', function (request, response) {
+    db.json(`DELETE FROM CleaningThing WHERE CleaningID = '${request.params.cleaningid}' AND ThingID = '${request.params.thingid}'`, function (err, jsonString) {
+        if (err)
+        {
+            response.status(500).json({ message: err.message })
+        }
+        else
+        {
+            response.status(200).json({ message: "OK" })
+        }
+    });
+});
+
 app.get('/cleanings', function (request, response) {
     db.json(`SELECT * FROM Cleaning`, function (err, jsonString) {
         response.json(JSON.parse(jsonString))
@@ -649,17 +707,15 @@ app.post('/cleanings', function (request, response) {
     if(request.query.date == null ||
         request.query.result == null ||
         request.query.employee == null ||
-        request.query.chemicalagent == null ||
-        request.query.thing == null){
+        request.query.chemicalagent == null){
             response.status(400).json({ message: "400 Bad Request" })
     }
     else{
-        db.json(`INSERT INTO Cleaning (Date, Result, Employee, ChemicAlagent, Thing) VALUES(
+        db.json(`INSERT INTO Cleaning (Date, Result, Employee, ChemicAlagent) VALUES(
             "${request.query.date}",
             "${request.query.result}",
             "${request.query.employee}",
-            "${request.query.chemicalagent}",
-            "${request.query.thing}");`, function (err, jsonString) {
+            "${request.query.chemicalagent}");`, function (err, jsonString) {
                 if (err){
                     response.status(500).json({ message: err.message })
                 }
@@ -686,15 +742,14 @@ app.put('/cleanings/:id', function (request, response) {
     var result = request.query.result == null || request.query.result == '' ? "null" : `"${request.query.result}"`
     var employee = request.query.employee == null || request.query.employee == '' ? "null" : `"${request.query.employee}"`
     var chemicalagent = request.query.chemicalagent == null || request.query.chemicalagent == '' ? "null" : `"${request.query.chemicalagent}"`
-    var thing = request.query.thing == null || request.query.thing == '' ? "null" : `"${request.query.thing}"`
+    //var thing = request.query.thing == null || request.query.thing == '' ? "null" : `"${request.query.thing}"`
 
     var sqlQuery = `UPDATE Cleaning
                     SET
                     Date = coalesce(${date}, Date),
                     Result = coalesce(${result}, Result),
                     Employee = coalesce(${employee}, Employee),
-                    ChemicalAgent = coalesce(${chemicalagent}, ChemicalAgent),
-                    Thing = coalesce(${thing}, Thing)
+                    ChemicalAgent = coalesce(${chemicalagent}, ChemicalAgent)
                     WHERE ID = '${request.params.id}'`
     db.json(sqlQuery,
         function(err){

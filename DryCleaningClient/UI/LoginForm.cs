@@ -14,6 +14,7 @@ namespace DryCleaningClient
 #if DEBUG
             textBox_PassportID.Text = "123456";
             maskedTextBox_Password.Text = "1234";
+            textBox_Server.Text = "http://localhost";
 
 #endif
         }

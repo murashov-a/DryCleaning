@@ -20,8 +20,6 @@ namespace DryCleaningAPI.API.Responses
 
         public string ChemicalAgent { get; set; }
 
-        public int Thing { get; set; }
-
         public override int GetHashCode()
         {
             return ID;
@@ -44,7 +42,6 @@ namespace DryCleaningAPI.API.Responses
             {
                 ID = ID,
                 Result = Result,
-                Thing = Thing,
                 ChemicalAgent = ChemicalAgent,
                 Date = Date,
                 Employee = Employee

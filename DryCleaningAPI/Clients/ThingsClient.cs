@@ -9,6 +9,9 @@ namespace DryCleaningAPI
 
         public Thing[] GetThings() => _session.Requestor.Get<Thing[]>("/things");
 
+        public Thing Get(int id) =>
+            _session.Requestor.Get<Thing>($"/things/{id}");
+
         public Thing Add(string name, string material, string type, int cleaningorder) => 
             _session.Requestor.Post<Thing>($"/things?name={name}&material={material}&type={type}&cleaningorder={cleaningorder}");
 
