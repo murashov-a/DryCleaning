@@ -6,7 +6,7 @@ API представляет оболочку для управления БД:
 ## Требования
 Для запуска сервера необходимо установить:  
 * [NodeJS](https://nodejs.org/ru/)
-* Пакеты. Из директории **APIServer** команда `npm install express sqlite-json js-md5 crypto fs`)
+* Пакеты. Из директории **APIServer** (команда `npm install express sqlite-json js-md5 crypto fs`)
 
 ## Запуск API сервера из директории **APIServer**:  
 `node server.js`
@@ -70,6 +70,8 @@ var allChemicalAgents = dryCleaningClient.ChemicalAgent.GetChemicalAgents();
 | `UsersClient` | Сотрудники |
 | `ThingsClient` | Вещи |
 | `CleaningsClient` | Чистки |
+| `CleaningsThingsClient` | Вещи в чистках |
+
 
 У каждого из которых есть такие методы, как `Get`, `Add`, `Edit`, `Delete` и т.п.
 
