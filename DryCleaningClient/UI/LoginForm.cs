@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Net;
 using System.Windows.Forms;
 using DryCleaningAPI.Exceptions;
 using DryCleaningClient.UI;
@@ -36,6 +37,11 @@ namespace DryCleaningClient
                 catch (DryCleaningException exception)
                 {
                     MessageBox.Show($"Ошибка: {exception.Message}", "Авторизация", MessageBoxButtons.OK,
+                        MessageBoxIcon.Error);
+                }
+                catch (Exception exception)
+                {
+                    MessageBox.Show($"Ошибка при установке соединения", "Авторизация", MessageBoxButtons.OK,
                         MessageBoxIcon.Error);
                 }
 
