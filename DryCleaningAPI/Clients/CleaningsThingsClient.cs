@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using BrightIdeasSoftware;
 using DryCleaningAPI.API.Responses;
-using DryCleaningAPI.Extensions;
 
 namespace DryCleaningAPI
 {
@@ -13,7 +10,20 @@ namespace DryCleaningAPI
 
         public CleaningThing[] GetCleanings() => _session.Requestor.Get<CleaningThing[]>("/cleaningsthings");
 
-        public Thing[] GetThings(int cleaningID) => _session.Requestor.Get<Thing[]>($"/cleaningsthings/{cleaningID}");
+        static Dictionary<int, Thing[]> cacheThings = new Dictionary<int, Thing[]>();
+        public Thing[] GetThings(int cleaningID, bool useCache = false)
+        {
+            if (!useCache || !cacheThings.ContainsKey(cleaningID))
+            {
+                cacheThings[cleaningID] = _session.Requestor.Get<Thing[]>($"/cleaningsthings/{cleaningID}");
+            }
+            return cacheThings[cleaningID];
+        }
+
+        public static void ResetCache()
+        {
+            cacheThings.Clear();
+        }
 
         public void Add(int cleaningID, int thingID) =>
             _session.Requestor.Post<CleaningThing>($"/cleaningsthings?cleaningid={cleaningID}&thingid={thingID}");

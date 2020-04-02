@@ -11,7 +11,7 @@ namespace DryCleaningAPI
 
         public User[] GetUsers() =>_session.Requestor.Get<User[]>("/users");
 
-        Dictionary<int, User> cacheUsers = new Dictionary<int, User>();
+        static Dictionary<int, User> cacheUsers = new Dictionary<int, User>();
         public User GetUser(int id, bool useCache = false)
         {
             if (!useCache || !cacheUsers.ContainsKey(id))
@@ -19,6 +19,10 @@ namespace DryCleaningAPI
                 cacheUsers[id] = _session.Requestor.Get<User>($"/users/{id}");
             }
             return cacheUsers[id];
+        }
+        public static void ResetCache()
+        {
+            cacheUsers.Clear();
         }
 
         public User EditCurrentUser(int? newPassportID = null, string newName = null, string newPassword = null) =>

@@ -3,6 +3,8 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+using BrightIdeasSoftware;
+using DryCleaningAPI;
 using DryCleaningAPI.API.Responses;
 using DryCleaningAPI.Extensions;
 
@@ -30,6 +32,15 @@ namespace DryCleaningClient.UI
             InitializeComponent();
 
             toolTip_DragDropThingHelp.SetToolTip(this.treeListView_Cleanings, "Чтобы добавить вещь в чистку, используйте Drag & Drop (перетаскивание мышкой)");
+
+            treeListView_Cleanings.ItemsChanging += delegate(object sender, ItemsChangingEventArgs args)
+            {
+                CleaningsThingsClient.ResetCache();
+            };
+            objectListView_Things.ItemsChanging += delegate(object sender, ItemsChangingEventArgs args)
+            {
+                ThingsClient.ResetCache();
+            };
 
             olvColumn_OrderEmployee.AspectGetter = delegate(object objCleaningOrder)
             {
@@ -107,7 +118,7 @@ namespace DryCleaningClient.UI
 
                 if (objCleaningOrThing is CleaningThing cleaningThing)
                 {
-                    return _client.Things.Get(cleaningThing.ThingID).FullName;
+                    return _client.Things.Get(cleaningThing.ThingID, true).FullName;
                 }
 
                 return null;
@@ -116,7 +127,7 @@ namespace DryCleaningClient.UI
             {
                 if (objCleaning is Cleaning cleaning)
                 {
-                    return _client.CleaningsThings.GetThings(cleaning.ID).Any();
+                    return _client.CleaningsThings.GetThings(cleaning.ID, true).Any();
                 }
 
                 return false;
@@ -125,7 +136,9 @@ namespace DryCleaningClient.UI
             {
                 if (objCleaning is Cleaning cleaning)
                 {
-                    var things = _client.CleaningsThings.GetThings(cleaning.ID).Select(x => new CleaningThing() { CleaningID = cleaning.ID, ThingID = x.ID });
+                    var things = _client.CleaningsThings.GetThings(cleaning.ID, true)
+                        .Select(x => new CleaningThing() { CleaningID = cleaning.ID, ThingID = x.ID })
+                        .ToArray();
                     return things;
                 }
 

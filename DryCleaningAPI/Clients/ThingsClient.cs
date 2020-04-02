@@ -1,5 +1,5 @@
-﻿using DryCleaningAPI.API.Responses;
-using DryCleaningClient.API.Responses;
+﻿using System.Collections.Generic;
+using DryCleaningAPI.API.Responses;
 
 namespace DryCleaningAPI
 {
@@ -9,8 +9,19 @@ namespace DryCleaningAPI
 
         public Thing[] GetThings() => _session.Requestor.Get<Thing[]>("/things");
 
-        public Thing Get(int id) =>
-            _session.Requestor.Get<Thing>($"/things/{id}");
+        static Dictionary<int, Thing> cacheThings = new Dictionary<int, Thing>();
+        public Thing Get(int id, bool useCache = false)
+        {
+            if (!useCache || !cacheThings.ContainsKey(id))
+            {
+                cacheThings[id] = _session.Requestor.Get<Thing>($"/things/{id}");
+            }
+            return cacheThings[id];
+        }
+        public static void ResetCache()
+        {
+            cacheThings.Clear();
+        }
 
         public Thing Add(string name, string material, string type, int cleaningorder) => 
             _session.Requestor.Post<Thing>($"/things?name={name}&material={material}&type={type}&cleaningorder={cleaningorder}");
