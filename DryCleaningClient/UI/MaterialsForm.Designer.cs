@@ -48,6 +48,7 @@
             this.objectListView_Materials.Cursor = System.Windows.Forms.Cursors.Default;
             this.objectListView_Materials.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.objectListView_Materials.FullRowSelect = true;
+            this.objectListView_Materials.GridLines = true;
             this.objectListView_Materials.HideSelection = false;
             this.objectListView_Materials.Location = new System.Drawing.Point(18, 18);
             this.objectListView_Materials.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);

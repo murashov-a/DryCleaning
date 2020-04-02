@@ -645,6 +645,16 @@ app.get('/cleaningsthings', function (request, response) {
     });
 });
 
+app.get('/cleaningsthings/:cleaningid', function (request, response) {
+    db.json(`SELECT * from Thing t
+            WHERE EXISTS(
+                SELECT ThingID FROM CleaningThing c WHERE CleaningID = ${request.params.cleaningid}
+                AND c.ThingID = t.ID
+            )`, function (err, jsonString) {
+        response.json(JSON.parse(jsonString))
+    });
+});
+
 app.post('/cleaningsthings', function (request, response) {
     if(request.query.cleaningid == null ||
         request.query.thingid == null){

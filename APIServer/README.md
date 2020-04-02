@@ -512,6 +512,7 @@ _Только для администраторов_
 `post /types`   
 `get /cleaningsthings`   
 `post /cleaningsthings`   
+`get /cleaningsthings/:cleaningid`
 `put /cleaningsthings/:cleaningid/:thingid`   
 `delete /cleaningsthings/:cleaningid/:thingid`   
 `get /cleanings`   

@@ -1,4 +1,5 @@
-﻿using DryCleaningClient.API.Responses;
+﻿using System.Collections.Generic;
+using DryCleaningClient.API.Responses;
 
 namespace DryCleaningAPI
 {
@@ -8,9 +9,17 @@ namespace DryCleaningAPI
 
         public User GetCurrentUser() =>  _session.Requestor.Get<User>("/user");
 
-        public User[] GetUsers() =>  _session.Requestor.Get<User[]>("/users");
+        public User[] GetUsers() =>_session.Requestor.Get<User[]>("/users");
 
-        public User GetUser(int id) => _session.Requestor.Get<User>($"/users/{id}");
+        Dictionary<int, User> cacheUsers = new Dictionary<int, User>();
+        public User GetUser(int id, bool useCache = false)
+        {
+            if (!useCache || !cacheUsers.ContainsKey(id))
+            {
+                cacheUsers[id] = _session.Requestor.Get<User>($"/users/{id}");
+            }
+            return cacheUsers[id];
+        }
 
         public User EditCurrentUser(int? newPassportID = null, string newName = null, string newPassword = null) =>
             _session.Requestor.Put<User>($"/user?newPassportID={newPassportID}&newName={newName}&newPassword={newPassword}");

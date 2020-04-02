@@ -70,6 +70,7 @@
             this.objectListView_Users.Cursor = System.Windows.Forms.Cursors.Default;
             this.objectListView_Users.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.objectListView_Users.FullRowSelect = true;
+            this.objectListView_Users.GridLines = true;
             this.objectListView_Users.HideSelection = false;
             this.objectListView_Users.Location = new System.Drawing.Point(0, 0);
             this.objectListView_Users.MultiSelect = false;

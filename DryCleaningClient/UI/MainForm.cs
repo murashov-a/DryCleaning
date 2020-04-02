@@ -1,12 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
+using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using DryCleaningAPI.API.Responses;
 using DryCleaningAPI.Extensions;
-using DryCleaningClient.API.Responses;
-using DryCleaningClient.UI.Settings;
 
 namespace DryCleaningClient.UI
 {
@@ -31,71 +29,106 @@ namespace DryCleaningClient.UI
             Cleanings = new BindingList<Cleaning>(_client.Cleanings.GetCleanings());
             InitializeComponent();
 
-            olvColumn_OrderEmployee.AspectGetter = delegate (object objCleaningOrder)
+            toolTip_DragDropThingHelp.SetToolTip(this.treeListView_Cleanings, "Чтобы добавить вещь в чистку, используйте Drag & Drop (перетаскивание мышкой)");
+
+            olvColumn_OrderEmployee.AspectGetter = delegate(object objCleaningOrder)
             {
                 if (objCleaningOrder is CleaningOrder cleaningOrder)
                 {
                     var selectedUser = _client.Users.GetUser(cleaningOrder.Employee);
                     return selectedUser.Name;
                 }
+
                 return null;
             };
+
             olvColumn_CleaningEmployee.AspectGetter = delegate(object objCleaning)
             {
                 if (objCleaning is Cleaning cleaning)
                 {
-                    var selectedUser = _client.Users.GetUser(cleaning.Employee);
+                    var selectedUser = _client.Users.GetUser(cleaning.Employee, true);
                     return selectedUser.Name;
                 }
+
                 return null;
             };
-            olvColumn_Client.AspectGetter = delegate (object objCleaningOrder)
+            olvColumn_Client.AspectGetter = delegate(object objCleaningOrder)
             {
                 if (objCleaningOrder is CleaningOrder cleaningOrder)
                 {
                     var selectedClient = _client.Clients.GetClient(cleaningOrder.Client);
                     return selectedClient.Name;
                 }
+
                 return null;
             };
-            olvColumn_ActualTerm.AspectGetter = delegate (object objCleaningOrder)
+            olvColumn_ActualTerm.AspectGetter = delegate(object objCleaningOrder)
             {
                 if (objCleaningOrder is CleaningOrder cleaningOrder)
                 {
                     return cleaningOrder.ActualTerm?.ToString(SqliteDateTimeConverter.SQLITE_DATE_FORMAT);
                 }
+
                 return null;
             };
-            olvColumn_DateOfReceipt.AspectGetter = delegate (object objCleaningOrder)
+            olvColumn_DateOfReceipt.AspectGetter = delegate(object objCleaningOrder)
             {
                 if (objCleaningOrder is CleaningOrder cleaningOrder)
                 {
                     return cleaningOrder.DateOfReceipt.ToString(SqliteDateTimeConverter.SQLITE_DATE_FORMAT);
                 }
+
                 return null;
             };
-            olvColumn_DateOfReturn.AspectGetter = delegate (object objCleaningOrder)
+            olvColumn_DateOfReturn.AspectGetter = delegate(object objCleaningOrder)
             {
                 if (objCleaningOrder is CleaningOrder cleaningOrder)
                 {
                     return cleaningOrder.DateOfReturn?.ToString(SqliteDateTimeConverter.SQLITE_DATE_FORMAT);
                 }
+
                 return null;
             };
-            olvColumn_TargetTerm.AspectGetter = delegate (object objCleaningOrder)
+            olvColumn_TargetTerm.AspectGetter = delegate(object objCleaningOrder)
             {
                 if (objCleaningOrder is CleaningOrder cleaningOrder)
                 {
                     return cleaningOrder.TargetTerm.ToString(SqliteDateTimeConverter.SQLITE_DATE_FORMAT);
                 }
+
                 return null;
             };
-            olvColumn_Date.AspectGetter = delegate (object objCleaning)
+            olvColumn_DateOrThing.AspectGetter = delegate(object objCleaningOrThing)
             {
-                if (objCleaning is Cleaning cleaning)
+                if (objCleaningOrThing is Cleaning cleaning)
                 {
                     return cleaning.Date.ToString(SqliteDateTimeConverter.SQLITE_DATE_FORMAT);
                 }
+
+                if (objCleaningOrThing is CleaningThing cleaningThing)
+                {
+                    return _client.Things.Get(cleaningThing.ThingID).FullName;
+                }
+
+                return null;
+            }; 
+            treeListView_Cleanings.CanExpandGetter += delegate(object objCleaning)
+            {
+                if (objCleaning is Cleaning cleaning)
+                {
+                    return _client.CleaningsThings.GetThings(cleaning.ID).Any();
+                }
+
+                return false;
+            };
+            treeListView_Cleanings.ChildrenGetter += delegate(object objCleaning)
+            {
+                if (objCleaning is Cleaning cleaning)
+                {
+                    var things = _client.CleaningsThings.GetThings(cleaning.ID).Select(x => new CleaningThing() { CleaningID = cleaning.ID, ThingID = x.ID });
+                    return things;
+                }
+
                 return null;
             };
 
@@ -111,7 +144,7 @@ namespace DryCleaningClient.UI
         private void UpdateCleaningsList()
         {
             Cleanings = new BindingList<Cleaning>(_client.Cleanings.GetCleanings());
-            objectListView_Cleanings.SetObjects(Cleanings);
+            treeListView_Cleanings.SetObjects(Cleanings);
         }
         private void UpdateThingsList(CleaningOrder cleaningOrder)
         {
@@ -287,19 +320,18 @@ namespace DryCleaningClient.UI
             }
         }
 
-        private void objectListView_Cleanings_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (objectListView_Cleanings.SelectedObject is Cleaning cleaning)
-            {
-                UpdateCleaningThingsList(cleaning);
-            }
-
-            CanCleaningEditCheckAndBlockButton();
-        }
 
         void CanCleaningEditCheckAndBlockButton()
         {
-            button_ThingCleaningAdd.Enabled = button_EditCleaning.Enabled = button_DeleteCleaning.Enabled = objectListView_Cleanings.SelectedObject is Cleaning;
+            button_EditCleaning.Enabled = button_DeleteCleaning.Enabled = false;
+            if (treeListView_Cleanings.SelectedObject is Cleaning)
+            {
+                button_EditCleaning.Enabled = button_DeleteCleaning.Enabled = true;
+            }
+            if (treeListView_Cleanings.SelectedObject is CleaningThing)
+            {
+                button_DeleteCleaning.Enabled = true;
+            }
         }
 
         private void UpdateCleaningThingsList(Cleaning cleaning)
@@ -318,12 +350,12 @@ namespace DryCleaningClient.UI
             {
                 CleaningThings.Add(_client.Things.Get(cleaningThing.ThingID));
             }
-            objectListView_CleaningThings.SetObjects(CleaningThings);
+            //objectListView_CleaningThings.SetObjects(CleaningThings);
         }
 
         private void button_DeleteCleaning_Click(object sender, EventArgs e)
         {
-            if (objectListView_Cleanings.SelectedObject is Cleaning cleaning)
+            if (treeListView_Cleanings.SelectedObject is Cleaning cleaning)
             {
                 if (MessageBox.Show($"Удалить чистку?", "Подтверждение", MessageBoxButtons.YesNo,
                         MessageBoxIcon.Question) == DialogResult.Yes)
@@ -332,11 +364,22 @@ namespace DryCleaningClient.UI
                     UpdateCleaningsList();
                 }
             }
+
+            if (treeListView_Cleanings.SelectedObject is CleaningThing cleaningThing)
+            {
+                if (MessageBox.Show($"Удалить вещь '{_client.Things.Get(cleaningThing.ThingID).Name}' из чистки?", "Подтверждение", MessageBoxButtons.YesNo,
+                        MessageBoxIcon.Question) == DialogResult.Yes)
+                {
+                    //var parentCleaning = treeListView_Cleanings.GetParent(treeListView_Cleanings.SelectedObject) as Cleaning;
+                    _client.CleaningsThings.Delete(cleaningThing);
+                    UpdateCleaningsList();
+                }
+            }
         }
 
         private void button_EditCleaning_Click(object sender, EventArgs e)
         {
-            if (objectListView_Cleanings.SelectedObject is Cleaning cleaning)
+            if (treeListView_Cleanings.SelectedObject is Cleaning cleaning)
             {
                 var cleaningSettingsForm = new CleaningSettingsForm(cleaning, _client);
                 if (cleaningSettingsForm.ShowDialog() == DialogResult.OK)
@@ -364,41 +407,63 @@ namespace DryCleaningClient.UI
             }
         }
 
-        private void button_ThingCleaningAdd_Click(object sender, EventArgs e)
+        private void treeListView_Cleanings_SelectedIndexChanged(object sender, EventArgs e)
         {
-            var cleaningThingsSettings = new CleaningThingsSettings(_client, objectListView_CleaningThings.Objects?.Cast<Thing>());
-            if (cleaningThingsSettings.ShowDialog() == DialogResult.OK)
+            if (treeListView_Cleanings.SelectedObject is Cleaning cleaning)
             {
-                List<CleaningThing> cleaningThings = new List<CleaningThing>();
-                foreach (var checkedThing in cleaningThingsSettings.CheckedThings)
-                {
-                    cleaningThings.Add(new CleaningThing() { CleaningID = lastSelectCleaningID, ThingID = checkedThing.ID});
-                }
-                _client.CleaningsThings.Add(cleaningThings);
-                UpdateCleaningThingsList(lastSelectCleaningID);
+                UpdateCleaningThingsList(cleaning);
             }
+
+            CanCleaningEditCheckAndBlockButton();
         }
 
-        private void button_ThingCleaningDelete_Click(object sender, EventArgs e)
+        private void objectListView_Things_MouseDown(object sender, MouseEventArgs e)
         {
-            if (objectListView_CleaningThings.SelectedObject is Thing thing)
+            var itemForDrag = objectListView_Things.GetItemAt(e.X, e.Y);
+            if (itemForDrag != null)
             {
-                if (MessageBox.Show($"Удалить чистку вещь '{thing.Name}' из чистки №{lastSelectCleaningID}?", "Подтверждение", MessageBoxButtons.YesNo,
-                        MessageBoxIcon.Question) == DialogResult.Yes)
+                var objectForDrag = objectListView_Things.GetModelObject(itemForDrag.Index);
+                if (objectForDrag is Thing thingForDrug)
                 {
-                    _client.CleaningsThings.Delete(lastSelectCleaningID, thing.ID);
-                    UpdateCleaningThingsList(lastSelectCleaningID);
+                    objectListView_Things.DoDragDrop(objectForDrag, DragDropEffects.Copy | DragDropEffects.Move);
                 }
             }
         }
 
-        private void objectListView_CleaningThings_SelectedIndexChanged(object sender, EventArgs e)
+        private void treeListView_Cleanings_DragOver(object sender, DragEventArgs e)
         {
-            CanCleaningThingsEditCheckAndBlockButton();
+            e.Effect = DragDropEffects.None;
+
+            var thing = e.Data.GetData(typeof(Thing)) as Thing;
+            var pointToScreen = treeListView_Cleanings.PointToClient(new Point(e.X, e.Y));
+            var itemForDrop = treeListView_Cleanings.GetItemAt(pointToScreen.X, pointToScreen.Y);
+            if (thing != null && itemForDrop != null)
+            {
+                itemForDrop.Selected = true;
+                if (treeListView_Cleanings.GetModelObject(itemForDrop.Index) is Cleaning cleaning)
+                {
+                    var things = _client.CleaningsThings.GetThings(cleaning.ID);
+                    if (!things.Any(x => x.ID == thing.ID))
+                    {
+                        e.Effect = DragDropEffects.Copy;
+                    }
+                }
+            }
         }
-        void CanCleaningThingsEditCheckAndBlockButton()
+
+        private void treeListView_Cleanings_DragDrop(object sender, DragEventArgs e)
         {
-            button_ThingCleaningDelete.Enabled = objectListView_CleaningThings.SelectedObject is Thing;
+            var thing = e.Data.GetData(typeof(Thing)) as Thing;
+            var pointToScreen = treeListView_Cleanings.PointToClient(new Point(e.X, e.Y));
+            var itemForDrop = treeListView_Cleanings.GetItemAt(pointToScreen.X, pointToScreen.Y);
+            if (thing != null && itemForDrop != null)
+            {
+                if (treeListView_Cleanings.GetModelObject(itemForDrop.Index) is Cleaning cleaning)
+                {
+                    _client.CleaningsThings.Add(cleaning.ID, thing.ID);
+                    UpdateCleaningsList();
+                }
+            }
         }
     }
 }

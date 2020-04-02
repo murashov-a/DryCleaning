@@ -73,12 +73,6 @@
     <Compile Include="UI\Settings\CleaningSettingsForm.Designer.cs">
       <DependentUpon>CleaningSettingsForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\Settings\CleaningThingsSettings.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="UI\Settings\CleaningThingsSettings.Designer.cs">
-      <DependentUpon>CleaningThingsSettings.cs</DependentUpon>
-    </Compile>
     <Compile Include="UI\Settings\ClientSettingsForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -185,9 +179,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Settings\CleaningSettingsForm.resx">
       <DependentUpon>CleaningSettingsForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UI\Settings\CleaningThingsSettings.resx">
-      <DependentUpon>CleaningThingsSettings.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\Settings\ClientSettingsForm.resx">
       <DependentUpon>ClientSettingsForm.cs</DependentUpon>

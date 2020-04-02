@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.nameToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.uSERNAMEToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
@@ -62,34 +63,24 @@
             this.olvColumn_Name = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.olvColumn_Material = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.olvColumn_Type = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
-            this.tableLayoutPanel_Cleanings = new System.Windows.Forms.TableLayoutPanel();
-            this.groupBox_CleaningThings = new System.Windows.Forms.GroupBox();
-            this.button_ThingCleaningDelete = new System.Windows.Forms.Button();
-            this.button_ThingCleaningAdd = new System.Windows.Forms.Button();
-            this.objectListView_CleaningThings = new BrightIdeasSoftware.ObjectListView();
-            this.olvColumn1 = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
-            this.olvColumn2 = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
-            this.olvColumn3 = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.groupBox_Cleanings = new System.Windows.Forms.GroupBox();
-            this.button_DeleteCleaning = new System.Windows.Forms.Button();
-            this.button_EditCleaning = new System.Windows.Forms.Button();
-            this.button_AddCleaning = new System.Windows.Forms.Button();
-            this.objectListView_Cleanings = new BrightIdeasSoftware.ObjectListView();
-            this.olvColumn_Date = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
+            this.treeListView_Cleanings = new BrightIdeasSoftware.TreeListView();
+            this.olvColumn_DateOrThing = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.olvColumn_Result = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.olvColumn_CleaningEmployee = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
             this.olvColumn_ChemicalAgent = ((BrightIdeasSoftware.OLVColumn)(new BrightIdeasSoftware.OLVColumn()));
+            this.button_DeleteCleaning = new System.Windows.Forms.Button();
+            this.button_EditCleaning = new System.Windows.Forms.Button();
+            this.button_AddCleaning = new System.Windows.Forms.Button();
+            this.toolTip_DragDropThingHelp = new System.Windows.Forms.ToolTip(this.components);
             this.menuStrip_Panel.SuspendLayout();
             this.tableLayoutPanel_Orders.SuspendLayout();
             this.groupBox_Orders.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.objectListView_Orders)).BeginInit();
             this.groupBox_Things.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.objectListView_Things)).BeginInit();
-            this.tableLayoutPanel_Cleanings.SuspendLayout();
-            this.groupBox_CleaningThings.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.objectListView_CleaningThings)).BeginInit();
             this.groupBox_Cleanings.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.objectListView_Cleanings)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.treeListView_Cleanings)).BeginInit();
             this.SuspendLayout();
             // 
             // nameToolStripMenuItem
@@ -212,13 +203,16 @@
             this.tableLayoutPanel_Orders.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 45.77657F));
             this.tableLayoutPanel_Orders.Controls.Add(this.groupBox_Orders, 0, 0);
             this.tableLayoutPanel_Orders.Controls.Add(this.groupBox_Things, 0, 1);
-            this.tableLayoutPanel_Orders.Controls.Add(this.tableLayoutPanel_Cleanings, 0, 2);
+            this.tableLayoutPanel_Orders.Controls.Add(this.groupBox_Cleanings, 0, 2);
             this.tableLayoutPanel_Orders.Location = new System.Drawing.Point(12, 34);
             this.tableLayoutPanel_Orders.Name = "tableLayoutPanel_Orders";
             this.tableLayoutPanel_Orders.RowCount = 3;
             this.tableLayoutPanel_Orders.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel_Orders.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 254F));
             this.tableLayoutPanel_Orders.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 245F));
+            this.tableLayoutPanel_Orders.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel_Orders.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel_Orders.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
             this.tableLayoutPanel_Orders.Size = new System.Drawing.Size(1434, 857);
             this.tableLayoutPanel_Orders.TabIndex = 1;
             // 
@@ -293,6 +287,7 @@
             this.olvColumn_Client});
             this.objectListView_Orders.Cursor = System.Windows.Forms.Cursors.Default;
             this.objectListView_Orders.FullRowSelect = true;
+            this.objectListView_Orders.GridLines = true;
             this.objectListView_Orders.HideSelection = false;
             this.objectListView_Orders.Location = new System.Drawing.Point(6, 25);
             this.objectListView_Orders.MultiSelect = false;
@@ -402,6 +397,7 @@
             this.objectListView_Things.AllColumns.Add(this.olvColumn_Name);
             this.objectListView_Things.AllColumns.Add(this.olvColumn_Material);
             this.objectListView_Things.AllColumns.Add(this.olvColumn_Type);
+            this.objectListView_Things.AllowDrop = true;
             this.objectListView_Things.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
@@ -412,6 +408,7 @@
             this.olvColumn_Type});
             this.objectListView_Things.Cursor = System.Windows.Forms.Cursors.Default;
             this.objectListView_Things.FullRowSelect = true;
+            this.objectListView_Things.GridLines = true;
             this.objectListView_Things.HideSelection = false;
             this.objectListView_Things.Location = new System.Drawing.Point(6, 25);
             this.objectListView_Things.MultiSelect = false;
@@ -423,6 +420,7 @@
             this.objectListView_Things.View = System.Windows.Forms.View.Details;
             this.objectListView_Things.ItemsChanged += new System.EventHandler<BrightIdeasSoftware.ItemsChangedEventArgs>(this.objectListView_Things_ItemsChanged);
             this.objectListView_Things.SelectedIndexChanged += new System.EventHandler(this.objectListView_Things_SelectedIndexChanged);
+            this.objectListView_Things.MouseDown += new System.Windows.Forms.MouseEventHandler(this.objectListView_Things_MouseDown);
             // 
             // olvColumn_Name
             // 
@@ -442,124 +440,83 @@
             this.olvColumn_Type.Text = "Тип";
             this.olvColumn_Type.Width = 233;
             // 
-            // tableLayoutPanel_Cleanings
-            // 
-            this.tableLayoutPanel_Cleanings.ColumnCount = 2;
-            this.tableLayoutPanel_Cleanings.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel_Cleanings.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel_Cleanings.Controls.Add(this.groupBox_CleaningThings, 1, 0);
-            this.tableLayoutPanel_Cleanings.Controls.Add(this.groupBox_Cleanings, 0, 0);
-            this.tableLayoutPanel_Cleanings.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel_Cleanings.Location = new System.Drawing.Point(3, 615);
-            this.tableLayoutPanel_Cleanings.Name = "tableLayoutPanel_Cleanings";
-            this.tableLayoutPanel_Cleanings.RowCount = 1;
-            this.tableLayoutPanel_Cleanings.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel_Cleanings.Size = new System.Drawing.Size(1428, 239);
-            this.tableLayoutPanel_Cleanings.TabIndex = 2;
-            // 
-            // groupBox_CleaningThings
-            // 
-            this.groupBox_CleaningThings.Controls.Add(this.button_ThingCleaningDelete);
-            this.groupBox_CleaningThings.Controls.Add(this.button_ThingCleaningAdd);
-            this.groupBox_CleaningThings.Controls.Add(this.objectListView_CleaningThings);
-            this.groupBox_CleaningThings.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox_CleaningThings.Location = new System.Drawing.Point(717, 3);
-            this.groupBox_CleaningThings.Name = "groupBox_CleaningThings";
-            this.groupBox_CleaningThings.Size = new System.Drawing.Size(708, 233);
-            this.groupBox_CleaningThings.TabIndex = 1;
-            this.groupBox_CleaningThings.TabStop = false;
-            this.groupBox_CleaningThings.Text = "Вещи чистки";
-            // 
-            // button_ThingCleaningDelete
-            // 
-            this.button_ThingCleaningDelete.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.button_ThingCleaningDelete.Enabled = false;
-            this.button_ThingCleaningDelete.Location = new System.Drawing.Point(345, 197);
-            this.button_ThingCleaningDelete.Name = "button_ThingCleaningDelete";
-            this.button_ThingCleaningDelete.Size = new System.Drawing.Size(357, 30);
-            this.button_ThingCleaningDelete.TabIndex = 10;
-            this.button_ThingCleaningDelete.Text = "Удалить";
-            this.button_ThingCleaningDelete.UseVisualStyleBackColor = true;
-            this.button_ThingCleaningDelete.Click += new System.EventHandler(this.button_ThingCleaningDelete_Click);
-            // 
-            // button_ThingCleaningAdd
-            // 
-            this.button_ThingCleaningAdd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.button_ThingCleaningAdd.Enabled = false;
-            this.button_ThingCleaningAdd.Location = new System.Drawing.Point(6, 197);
-            this.button_ThingCleaningAdd.Name = "button_ThingCleaningAdd";
-            this.button_ThingCleaningAdd.Size = new System.Drawing.Size(333, 30);
-            this.button_ThingCleaningAdd.TabIndex = 7;
-            this.button_ThingCleaningAdd.Text = "Добавить";
-            this.button_ThingCleaningAdd.UseVisualStyleBackColor = true;
-            this.button_ThingCleaningAdd.Click += new System.EventHandler(this.button_ThingCleaningAdd_Click);
-            // 
-            // objectListView_CleaningThings
-            // 
-            this.objectListView_CleaningThings.AllColumns.Add(this.olvColumn1);
-            this.objectListView_CleaningThings.AllColumns.Add(this.olvColumn2);
-            this.objectListView_CleaningThings.AllColumns.Add(this.olvColumn3);
-            this.objectListView_CleaningThings.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.objectListView_CleaningThings.CellEditUseWholeCell = false;
-            this.objectListView_CleaningThings.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.olvColumn1,
-            this.olvColumn2,
-            this.olvColumn3});
-            this.objectListView_CleaningThings.Cursor = System.Windows.Forms.Cursors.Default;
-            this.objectListView_CleaningThings.FullRowSelect = true;
-            this.objectListView_CleaningThings.HideSelection = false;
-            this.objectListView_CleaningThings.Location = new System.Drawing.Point(0, 25);
-            this.objectListView_CleaningThings.MultiSelect = false;
-            this.objectListView_CleaningThings.Name = "objectListView_CleaningThings";
-            this.objectListView_CleaningThings.ShowGroups = false;
-            this.objectListView_CleaningThings.Size = new System.Drawing.Size(708, 166);
-            this.objectListView_CleaningThings.TabIndex = 5;
-            this.objectListView_CleaningThings.UseCompatibleStateImageBehavior = false;
-            this.objectListView_CleaningThings.View = System.Windows.Forms.View.Details;
-            this.objectListView_CleaningThings.SelectedIndexChanged += new System.EventHandler(this.objectListView_CleaningThings_SelectedIndexChanged);
-            // 
-            // olvColumn1
-            // 
-            this.olvColumn1.AspectName = "Name";
-            this.olvColumn1.Text = "Название";
-            this.olvColumn1.Width = 347;
-            // 
-            // olvColumn2
-            // 
-            this.olvColumn2.AspectName = "Material";
-            this.olvColumn2.Text = "Материал";
-            this.olvColumn2.Width = 195;
-            // 
-            // olvColumn3
-            // 
-            this.olvColumn3.AspectName = "Type";
-            this.olvColumn3.Text = "Тип";
-            this.olvColumn3.Width = 161;
-            // 
             // groupBox_Cleanings
             // 
+            this.groupBox_Cleanings.Controls.Add(this.treeListView_Cleanings);
             this.groupBox_Cleanings.Controls.Add(this.button_DeleteCleaning);
             this.groupBox_Cleanings.Controls.Add(this.button_EditCleaning);
             this.groupBox_Cleanings.Controls.Add(this.button_AddCleaning);
-            this.groupBox_Cleanings.Controls.Add(this.objectListView_Cleanings);
             this.groupBox_Cleanings.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBox_Cleanings.Location = new System.Drawing.Point(3, 3);
+            this.groupBox_Cleanings.Location = new System.Drawing.Point(3, 615);
             this.groupBox_Cleanings.Name = "groupBox_Cleanings";
-            this.groupBox_Cleanings.Size = new System.Drawing.Size(708, 233);
-            this.groupBox_Cleanings.TabIndex = 0;
+            this.groupBox_Cleanings.Size = new System.Drawing.Size(1428, 239);
+            this.groupBox_Cleanings.TabIndex = 2;
             this.groupBox_Cleanings.TabStop = false;
             this.groupBox_Cleanings.Text = "Чистки";
+            // 
+            // treeListView_Cleanings
+            // 
+            this.treeListView_Cleanings.AllColumns.Add(this.olvColumn_DateOrThing);
+            this.treeListView_Cleanings.AllColumns.Add(this.olvColumn_Result);
+            this.treeListView_Cleanings.AllColumns.Add(this.olvColumn_CleaningEmployee);
+            this.treeListView_Cleanings.AllColumns.Add(this.olvColumn_ChemicalAgent);
+            this.treeListView_Cleanings.AllowDrop = true;
+            this.treeListView_Cleanings.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.treeListView_Cleanings.CellEditUseWholeCell = false;
+            this.treeListView_Cleanings.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.olvColumn_DateOrThing,
+            this.olvColumn_Result,
+            this.olvColumn_CleaningEmployee,
+            this.olvColumn_ChemicalAgent});
+            this.treeListView_Cleanings.Cursor = System.Windows.Forms.Cursors.Default;
+            this.treeListView_Cleanings.FullRowSelect = true;
+            this.treeListView_Cleanings.GridLines = true;
+            this.treeListView_Cleanings.HideSelection = false;
+            this.treeListView_Cleanings.Location = new System.Drawing.Point(6, 25);
+            this.treeListView_Cleanings.MultiSelect = false;
+            this.treeListView_Cleanings.Name = "treeListView_Cleanings";
+            this.treeListView_Cleanings.ShowGroups = false;
+            this.treeListView_Cleanings.Size = new System.Drawing.Size(1416, 172);
+            this.treeListView_Cleanings.TabIndex = 13;
+            this.treeListView_Cleanings.UseCompatibleStateImageBehavior = false;
+            this.treeListView_Cleanings.View = System.Windows.Forms.View.Details;
+            this.treeListView_Cleanings.VirtualMode = true;
+            this.treeListView_Cleanings.SelectedIndexChanged += new System.EventHandler(this.treeListView_Cleanings_SelectedIndexChanged);
+            this.treeListView_Cleanings.DragDrop += new System.Windows.Forms.DragEventHandler(this.treeListView_Cleanings_DragDrop);
+            this.treeListView_Cleanings.DragOver += new System.Windows.Forms.DragEventHandler(this.treeListView_Cleanings_DragOver);
+            // 
+            // olvColumn_DateOrThing
+            // 
+            this.olvColumn_DateOrThing.Text = "Дата";
+            this.olvColumn_DateOrThing.Width = 365;
+            // 
+            // olvColumn_Result
+            // 
+            this.olvColumn_Result.AspectName = "Result";
+            this.olvColumn_Result.Text = "Результат";
+            this.olvColumn_Result.Width = 314;
+            // 
+            // olvColumn_CleaningEmployee
+            // 
+            this.olvColumn_CleaningEmployee.Text = "Сотрудник";
+            this.olvColumn_CleaningEmployee.Width = 461;
+            // 
+            // olvColumn_ChemicalAgent
+            // 
+            this.olvColumn_ChemicalAgent.AspectName = "ChemicalAgent";
+            this.olvColumn_ChemicalAgent.Text = "Химическое средство";
+            this.olvColumn_ChemicalAgent.Width = 270;
             // 
             // button_DeleteCleaning
             // 
             this.button_DeleteCleaning.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.button_DeleteCleaning.Enabled = false;
-            this.button_DeleteCleaning.Location = new System.Drawing.Point(602, 197);
+            this.button_DeleteCleaning.Location = new System.Drawing.Point(1322, 203);
             this.button_DeleteCleaning.Name = "button_DeleteCleaning";
             this.button_DeleteCleaning.Size = new System.Drawing.Size(100, 30);
-            this.button_DeleteCleaning.TabIndex = 9;
+            this.button_DeleteCleaning.TabIndex = 12;
             this.button_DeleteCleaning.Text = "Удалить";
             this.button_DeleteCleaning.UseVisualStyleBackColor = true;
             this.button_DeleteCleaning.Click += new System.EventHandler(this.button_DeleteCleaning_Click);
@@ -569,10 +526,10 @@
             this.button_EditCleaning.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.button_EditCleaning.Enabled = false;
-            this.button_EditCleaning.Location = new System.Drawing.Point(112, 197);
+            this.button_EditCleaning.Location = new System.Drawing.Point(170, 203);
             this.button_EditCleaning.Name = "button_EditCleaning";
-            this.button_EditCleaning.Size = new System.Drawing.Size(484, 30);
-            this.button_EditCleaning.TabIndex = 8;
+            this.button_EditCleaning.Size = new System.Drawing.Size(1146, 30);
+            this.button_EditCleaning.TabIndex = 11;
             this.button_EditCleaning.Text = "Редактировать";
             this.button_EditCleaning.UseVisualStyleBackColor = true;
             this.button_EditCleaning.Click += new System.EventHandler(this.button_EditCleaning_Click);
@@ -580,65 +537,13 @@
             // button_AddCleaning
             // 
             this.button_AddCleaning.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.button_AddCleaning.Location = new System.Drawing.Point(6, 197);
+            this.button_AddCleaning.Location = new System.Drawing.Point(6, 203);
             this.button_AddCleaning.Name = "button_AddCleaning";
-            this.button_AddCleaning.Size = new System.Drawing.Size(100, 30);
-            this.button_AddCleaning.TabIndex = 6;
-            this.button_AddCleaning.Text = "Добавить";
+            this.button_AddCleaning.Size = new System.Drawing.Size(158, 30);
+            this.button_AddCleaning.TabIndex = 10;
+            this.button_AddCleaning.Text = "Добавить чистку";
             this.button_AddCleaning.UseVisualStyleBackColor = true;
             this.button_AddCleaning.Click += new System.EventHandler(this.button_AddCleaning_Click);
-            // 
-            // objectListView_Cleanings
-            // 
-            this.objectListView_Cleanings.AllColumns.Add(this.olvColumn_Date);
-            this.objectListView_Cleanings.AllColumns.Add(this.olvColumn_Result);
-            this.objectListView_Cleanings.AllColumns.Add(this.olvColumn_CleaningEmployee);
-            this.objectListView_Cleanings.AllColumns.Add(this.olvColumn_ChemicalAgent);
-            this.objectListView_Cleanings.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.objectListView_Cleanings.CellEditUseWholeCell = false;
-            this.objectListView_Cleanings.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.olvColumn_Date,
-            this.olvColumn_Result,
-            this.olvColumn_CleaningEmployee,
-            this.olvColumn_ChemicalAgent});
-            this.objectListView_Cleanings.Cursor = System.Windows.Forms.Cursors.Default;
-            this.objectListView_Cleanings.FullRowSelect = true;
-            this.objectListView_Cleanings.HideSelection = false;
-            this.objectListView_Cleanings.Location = new System.Drawing.Point(6, 25);
-            this.objectListView_Cleanings.MultiSelect = false;
-            this.objectListView_Cleanings.Name = "objectListView_Cleanings";
-            this.objectListView_Cleanings.ShowGroups = false;
-            this.objectListView_Cleanings.Size = new System.Drawing.Size(696, 166);
-            this.objectListView_Cleanings.TabIndex = 5;
-            this.objectListView_Cleanings.UseCompatibleStateImageBehavior = false;
-            this.objectListView_Cleanings.View = System.Windows.Forms.View.Details;
-            this.objectListView_Cleanings.SelectedIndexChanged += new System.EventHandler(this.objectListView_Cleanings_SelectedIndexChanged);
-            // 
-            // olvColumn_Date
-            // 
-            this.olvColumn_Date.AspectName = "";
-            this.olvColumn_Date.Text = "Дата";
-            this.olvColumn_Date.Width = 92;
-            // 
-            // olvColumn_Result
-            // 
-            this.olvColumn_Result.AspectName = "Result";
-            this.olvColumn_Result.Text = "Результат";
-            this.olvColumn_Result.Width = 153;
-            // 
-            // olvColumn_CleaningEmployee
-            // 
-            this.olvColumn_CleaningEmployee.AspectName = "Employee";
-            this.olvColumn_CleaningEmployee.Text = "Сотрудник";
-            this.olvColumn_CleaningEmployee.Width = 262;
-            // 
-            // olvColumn_ChemicalAgent
-            // 
-            this.olvColumn_ChemicalAgent.AspectName = "ChemicalAgent";
-            this.olvColumn_ChemicalAgent.Text = "Химическое средство";
-            this.olvColumn_ChemicalAgent.Width = 184;
             // 
             // MainForm
             // 
@@ -660,11 +565,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.objectListView_Orders)).EndInit();
             this.groupBox_Things.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.objectListView_Things)).EndInit();
-            this.tableLayoutPanel_Cleanings.ResumeLayout(false);
-            this.groupBox_CleaningThings.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.objectListView_CleaningThings)).EndInit();
             this.groupBox_Cleanings.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.objectListView_Cleanings)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.treeListView_Cleanings)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -706,22 +608,15 @@
         private BrightIdeasSoftware.OLVColumn olvColumn_Material;
         private BrightIdeasSoftware.OLVColumn olvColumn_Type;
         private BrightIdeasSoftware.OLVColumn olvColumn_ID;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel_Cleanings;
-        private System.Windows.Forms.GroupBox groupBox_CleaningThings;
         private System.Windows.Forms.GroupBox groupBox_Cleanings;
-        private BrightIdeasSoftware.ObjectListView objectListView_Cleanings;
-        private System.Windows.Forms.Button button_DeleteCleaning;
-        private System.Windows.Forms.Button button_EditCleaning;
-        private System.Windows.Forms.Button button_AddCleaning;
-        private BrightIdeasSoftware.OLVColumn olvColumn_Date;
+        private BrightIdeasSoftware.TreeListView treeListView_Cleanings;
+        private BrightIdeasSoftware.OLVColumn olvColumn_DateOrThing;
         private BrightIdeasSoftware.OLVColumn olvColumn_Result;
         private BrightIdeasSoftware.OLVColumn olvColumn_CleaningEmployee;
         private BrightIdeasSoftware.OLVColumn olvColumn_ChemicalAgent;
-        private System.Windows.Forms.Button button_ThingCleaningDelete;
-        private System.Windows.Forms.Button button_ThingCleaningAdd;
-        private BrightIdeasSoftware.ObjectListView objectListView_CleaningThings;
-        private BrightIdeasSoftware.OLVColumn olvColumn1;
-        private BrightIdeasSoftware.OLVColumn olvColumn2;
-        private BrightIdeasSoftware.OLVColumn olvColumn3;
+        private System.Windows.Forms.Button button_DeleteCleaning;
+        private System.Windows.Forms.Button button_EditCleaning;
+        private System.Windows.Forms.Button button_AddCleaning;
+        private System.Windows.Forms.ToolTip toolTip_DragDropThingHelp;
     }
 }

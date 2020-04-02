@@ -39,7 +39,7 @@ namespace DryCleaningClient
                     MessageBox.Show($"Ошибка: {exception.Message}", "Авторизация", MessageBoxButtons.OK,
                         MessageBoxIcon.Error);
                 }
-                catch (Exception exception)
+                catch
                 {
                     MessageBox.Show($"Ошибка при установке соединения", "Авторизация", MessageBoxButtons.OK,
                         MessageBoxIcon.Error);
@@ -51,7 +51,7 @@ namespace DryCleaningClient
                     this.Hide();
                     mainForm.ShowDialog();
                     this.Show();
-                }
+                } 
             }
         }
     }

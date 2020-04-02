@@ -9,6 +9,11 @@ namespace DryCleaningAPI.API.Responses
         public string Type { get; set; }
         public int CleaningOrder { get; set; }
 
+        public string FullName
+        {
+            get { return $"{Name} ({Type}, {Material})"; }
+        } 
+
         public override int GetHashCode()
         {
             return ID;

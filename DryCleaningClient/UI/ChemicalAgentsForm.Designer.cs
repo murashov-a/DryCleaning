@@ -48,6 +48,7 @@
             this.objectListView_ChemicalAgents.Cursor = System.Windows.Forms.Cursors.Default;
             this.objectListView_ChemicalAgents.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.objectListView_ChemicalAgents.FullRowSelect = true;
+            this.objectListView_ChemicalAgents.GridLines = true;
             this.objectListView_ChemicalAgents.HideSelection = false;
             this.objectListView_ChemicalAgents.Location = new System.Drawing.Point(18, 18);
             this.objectListView_ChemicalAgents.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);

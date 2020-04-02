@@ -51,6 +51,7 @@
             this.objectListView_Clients.Cursor = System.Windows.Forms.Cursors.Default;
             this.objectListView_Clients.Font = new System.Drawing.Font("Times New Roman", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.objectListView_Clients.FullRowSelect = true;
+            this.objectListView_Clients.GridLines = true;
             this.objectListView_Clients.HideSelection = false;
             this.objectListView_Clients.Location = new System.Drawing.Point(18, 18);
             this.objectListView_Clients.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);

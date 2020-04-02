@@ -107,6 +107,3 @@ var allChemicalAgents = dryCleaningClient.ChemicalAgent.GetChemicalAgents();
 Для каждого элемента существует форма редактирования/добавления.  
 * Пример редактирования сотрудника:  
 ![image](DryCleaningClient/Images/EditClient.png)
-
-* Пример добавления вещей в чистку:  
-![image](DryCleaningClient/Images/SelectThingForClean.png)

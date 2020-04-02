@@ -21,9 +21,9 @@ namespace DryCleaningAPI.API.Responses
         public override bool Equals(object obj)
         {
             bool equaled = false;
-            if (obj is Cleaning cleaning)
+            if (obj is CleaningThing cleaningThing)
             {
-                equaled = cleaning.GetHashCode().Equals(this.GetHashCode());
+                equaled = cleaningThing.GetHashCode().Equals(this.GetHashCode());
             }
 
             return equaled;

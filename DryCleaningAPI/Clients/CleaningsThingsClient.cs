@@ -13,6 +13,8 @@ namespace DryCleaningAPI
 
         public CleaningThing[] GetCleanings() => _session.Requestor.Get<CleaningThing[]>("/cleaningsthings");
 
+        public Thing[] GetThings(int cleaningID) => _session.Requestor.Get<Thing[]>($"/cleaningsthings/{cleaningID}");
+
         public void Add(int cleaningID, int thingID) =>
             _session.Requestor.Post<CleaningThing>($"/cleaningsthings?cleaningid={cleaningID}&thingid={thingID}");
 
